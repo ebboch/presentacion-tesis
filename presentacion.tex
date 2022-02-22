@@ -15,7 +15,7 @@
 \usepackage{bm}
 \setbeamercovered{transparent}
 \definecolor{cinves}{rgb}{0.13, 0.7, 0.67}
-
+\usepackage{blkarray}
 
 \usetheme{Warsaw}
 \useoutertheme[subsection=false,shadow=true]{miniframes}
@@ -78,7 +78,7 @@
 \usebeamerfont{author}\insertauthor
 \end{beamercolorbox}
 \begin{beamercolorbox}[sep=1pt,center]{advisor}
-{\small Asesor: José Guadalupe Martínez Bernal}
+{\small Asesor: José Martínez Bernal}
 \end{beamercolorbox}
 \begin{beamercolorbox}[sep=8pt,center]{institute}
 \usebeamerfont{institute}\insertinstitute \\
@@ -98,7 +98,7 @@ Departamento de Matemáticas\\
 \geometry{papersize={20.1cm,10.95cm}}
 
 
-\title[CINVESTAV]{\textbf{Algoritmo de Metropolis Hastings\\ y Teorema de Recurrencia de Polya}}
+\title[CINVESTAV]{\textbf{Algoritmo de Metropolis-Hastings\\ y Teorema de Recurrencia de Polya}}
 \author[JesusEnriqueBejaranoOchoa]{\textbf{Jesús Enrique Bejarano Ochoa}}
 \institute[]{\small{Centro de Investigación y de Estudios Avanzados del I.P.N., M\'exico}}
 \date[15/02/21]{\scriptsize{28 de Febrero de 2021}}
@@ -149,6 +149,28 @@ Departamento de Matemáticas\\
 \newcommand{\mathcolor}{\textcolor}
 \newcommand{\emphdef}{\textbf}
 
+
+\useoutertheme{infolines}
+
+\setbeamertemplate{headline}[default]
+\setbeamertemplate{navigation symbols}{}
+\addtobeamertemplate{footline}{
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.75ex,dp=.5ex,right,rightskip=1em]
+    {mycolor}%
+\usebeamercolor[fg]{navigation symbols}\insertslidenavigationsymbol%
+%\insertframenavigationsymbol%
+%\insertsubsectionnavigationsymbol%
+%\insertsectionnavigationsymbol%
+%\insertdocnavigationsymbol%
+\insertbackfindforwardnavigationsymbol%
+    \end{beamercolorbox}%
+    }%
+    \vskip0.5pt%
+}{}
+%\setbeamerfont{page number in head/foot}{}
+%\setbeamertemplate{footline}[frame number]
 \begin{document}
 
 \tikzset{my state/.style={circle,draw, minimum width=1cm}}
@@ -559,12 +581,12 @@ La distribución $\pi$ es \emphdef{estacionaria} si $P\pi=\pi$.
     \pause
 
     \begin{thm}
-        Si $\pi$ es reversible para $P$, entonces $\pi$ es una distribución
+        Si $\pi$ es reversible para $P$, entonces $\pi$ es 
         estacionara para $P$.
     \end{thm}
     
     \begin{align*}
-        (P\pi)_i&= \sum_{j=1}^N P_{ji}\pi_i\\
+        (P\pi)_i&= \sum_{j=1}^N P_{ij}\pi_j\\
         &=\Big(\sum_{j=1}^N P_{ji}\Big)\pi_i\\
         &= \pi_i
     \end{align*}
@@ -681,7 +703,6 @@ $\pi$ es reversible para $M$
 \end{frame}
 
 
-
 \begin{frame}{Algoritmo de Metropolis-Hastings}
 %\begin{thm}
 %    Supongamos que la matriz propuesta $Q$ es irreducible, aperiódica y satisface
@@ -689,6 +710,10 @@ $\pi$ es reversible para $M$
 %    la cadena de Metropolis-Hastings es una cadena de Markov irreducible y aperciódica
 %    que además es reversible respecto a la distribución $\pi$.
 %\end{thm}
+Una \emphdef{caminata aleatoria} en una gráfica es un proceso que inicia
+en un vértice y avanza en cada paso a un vértice vecino aleatorio.
+
+\bigskip
     El siguiente algoritmo describe una caminata aleatoria asociada a la
     cadena de Metropolis-Hastings.
 
@@ -705,7 +730,7 @@ $\pi$ es reversible para $M$
         caminata será $i$
         
         \item
-        Si $\pi_j Q_{ij}>\pi_i Q_{ji}$, lanzamos una moneda sesgada con probabilidad $\pi_i
+        Si $\pi_j Q_{ij}>\pi_i Q_{ji}$, lanzamos una moneda de Bernoulli con probabilidad $\pi_i
         Q_{ji}/\pi_j Q_{ij}$ para escoger al estado $i$ y probabilidad $1-\pi_i
         Q_{ji}/\pi_j Q_{ij}$ de escoger al estado $j$
     \end{enumerate}
@@ -759,22 +784,22 @@ Cuando la matriz propuesta es simétrica, estamos hablando del
         \item
         Supongamos que la caminata está ubicada en el estado $j$ en este momento.
         Escogemos a $i$ de acuerdo a la matriz propuesta, es
-        decir, con probabilidad $Q_{ij}$
+        decir, con probabilidad $Q_{\ast j}$
         
         \item
         Si $\pi_j\leq \pi_i$, entonces la siguiente posición de la
         caminata será $i$
         
         \item
-        En caso contrario, lanzamos una moneda sesgada con probabilidad
+        En caso contrario, lanzamos una moneda de Bernoulli con probabilidad
         $\pi_i/\pi_j$ para escoger al estado $i$ y probabilidad
         $1-\pi_i/\pi_j$ de escoger al estado $j$
     \end{enumerate}
 
 \bigskip\pause
 
-{\it Si $\pi_i<\pi_j$ pero $\pi_i$ está muy cercano a $\pi_j$... Es muy posible que
-nos quedemos con $i$. El algoritmo no favorece saltos muy pronunciados...}
+{\it Si $\pi_i<\pi_j$ pero $\pi_i$ está muy cercano a $\pi_j$, es muy posible que
+nos quedemos con $i$. El algoritmo no favorece saltos muy pronunciados.}
 \end{frame}
 
 %\begin{frame}{Ejemplo del alg. de Metropolis}
@@ -850,9 +875,11 @@ nos quedemos con $i$. El algoritmo no favorece saltos muy pronunciados...}
         \node[my state] (4) at (0,4) {$4$};
 
         \path[every node]
-        (1) edge[->,>=latex,line width=1pt,bend left=20] node[above] {\small $60/100$} (2);
+        (1) edge[->,>=latex,line width=1pt,bend left=20] node[above] 
+        {\small \mathcolor{red}{$60/100$}} (2);
         \path[every node]
-        (2) edge[->,>=latex,line width=1pt,bend left=20] node[below] {\small $99/100$} (1);
+        (2) edge[->,>=latex,line width=1pt,bend left=20] node[below] 
+        {\small \mathcolor{red}{$99/100$}} (1);
         \path[every node]
         (2) edge[->,>=latex,line width=1pt,bend right=50] node[above] {} (4);
         \path[every node]
@@ -893,34 +920,34 @@ $2\xrightarrow{99/100} 1$ es aceptado porque $Q_{21}\pi_2\leq Q_{12}\pi_1$
 \end{frame}
 
 
-\begin{frame}{Elección de $Q$}
-Se sabe lo suficiente para el estudio práctico de simulaciones.
-Tenemos familias de cadenas propuestas $Q$.
-
-\bigskip
-
-\begin{itemize}
-    \item
-    Dada una distribución $q_1$, ponemos
-    \[
-        Q(i,j) = q_1(|j-i|)
-    \]
-
-    \item
-    Dada una distribución $q_2$, ponemos
-    \[
-        Q(i,j)=q_2(j)
-    \]
-    
-
-    \item
-    Si $\pi\varpropto\psi h$, donde $h$ es una distribución y $\psi$ es
-    uniformemente acotada, ponemos
-    \[
-        Q(i,j)=h(j)
-    \]
-\end{itemize}
-\end{frame}
+%\begin{frame}{Elección de $Q$}
+%Se sabe lo suficiente para el estudio práctico de simulaciones.
+%Tenemos familias de cadenas propuestas $Q$.
+%
+%\bigskip
+%
+%\begin{itemize}
+%    \item
+%    Dada una distribución $q_1$, ponemos
+%    \[
+%        Q(i,j) = q_1(|i-j|)
+%    \]
+%
+%    \item
+%    Dada una distribución $q_2$, ponemos
+%    \[
+%        Q(i,j)=q_2(i)
+%    \]
+%    
+%
+%    \item
+%    Si $\pi\varpropto\psi h$, donde $h$ es una distribución y $\psi$ es
+%    uniformemente acotada, ponemos
+%    \[
+%        Q(i,j)=h(i)
+%    \]
+%\end{itemize}
+%\end{frame}
 
 
 %\begin{frame}{Alcance de $Q$}
@@ -952,12 +979,32 @@ Tenemos familias de cadenas propuestas $Q$.
 %
 %\end{frame}
 
-\begin{frame}{Caminatas en la malla $\bZ^d$}
+\begin{frame}{Caminatas recurrentes y transitorias}
+Una caminata aleatoria que inicia en $0$ es \emphdef{recurrente} si la probabilidad
+de que regrese a $0$ es igual a $1$. Si esa probabilidad es $p<1$,
+entonces es \emphdef{transitoria}
 
-\emphdef{Caminata simple}: Digráfica con pesos positivos
-donde cada arista que sale de $i$ tiene peso igual
-a $1/d_i$, $d_i$ es el grado del vértice.
+\bigskip
+\bigskip
 
+Equivalentemente, es recurrente si la probabilidad de regresar una {\it infinidad}
+de veces a $0$ es igual a $1$.
+
+\bigskip
+\bigskip
+
+Es transitoria si la probabilidad de regresar una {\it cantidad finita} de veces
+a $0$ es igual a $1$.
+    
+
+\end{frame}
+
+\begin{frame}{Teorema de recurrencia de Polya}
+
+\begin{thm}[Polya]
+    Toda caminata aleatoria simple en $\bZ^d$ es recurrente cuando $d=1,2$ y transitoria
+    cuando $d\geq 3$.
+\end{thm}
 \begin{center}
 \begin{tikzpicture}[scale=1.50]
     \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (4,0);
@@ -1044,36 +1091,28 @@ a $1/d_i$, $d_i$ es el grado del vértice.
 \end{center}
 \end{frame}
 
-\begin{frame}{Teorema de recurrencia de Polya}
-
-\begin{thm}[Polya]
-    Toda caminata aleatoria simple en $\bZ^d$ es recurrente cuando $d=1,2$ y transitoria
-    cuando $d\geq 3$.
-\end{thm}
-\end{frame}
-
 \begin{frame}{Redes eléctricas}
 \emphdef{Red eléctrica}: $(\Gamma,\omega)$ gráfica no dirigida con pesos.
 \bigskip
 
 \begin{center}
-\begin{tabular}{m{5cm} m{5cm}}
+\begin{tabular}{m{6cm} m{6cm}}
 \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-    \node[my state] (1) at (0,0) {$s$};
-    \node[my state] (3) at (1.5,0) {$3$};
-    \node[my state] (2) at (1,1.5) {$2$};
-    \node[my state] (4) at (2.5,1.5) {$t$};
+    \node[my state] (s) at (0,0) {$s$};
+    \node[my state] (3) at (2.5,0) {$3$};
+    \node[my state] (2) at (1.5,2) {$2$};
+    \node[my state] (t) at (4,2) {$t$};
 
     \path[every node]
-    (1) edge[-] node[left] {\small $\omega_{s2}$} (2);
+    (s) edge[-] node[left] {$\omega_{s2}$} (2);
     \path[every node]
-    (1) edge[-] node[below] {\small $\omega_{s3}$} (3);
+    (s) edge[-] node[below] {$\omega_{s3}$} (3);
     \path[every node]
-    (1) edge[-] node[below] {} (4);
+    (s) edge[-] node[below] {} (t);
     \path[every node]
-    (2) edge[-] node[above] {} (4);
+    (2) edge[-] node[above] {} (t);
     \path[every node]
-    (3) edge[-] node[below] {} (4);
+    (3) edge[-] node[below] {} (t);
 \end{tikzpicture}
     &
     $\begin{aligned}[t]
@@ -1091,7 +1130,7 @@ a $1/d_i$, $d_i$ es el grado del vértice.
 \begin{frame}{Voltajes y corrientes}
 \emphdef{Ley de voltajes}: Si $v_1,\dots,v_k,v_{k+1}=v_1\in V$, entonces
 \[
-    \sum_{j=1}^k \phi(v_1)-\phi(v_{j+1}) = 0
+    \sum_{j=1}^k \phi(v_j)-\phi(v_{j+1}) = 0
 \]
 \bigskip
 
@@ -1109,8 +1148,9 @@ a $1/d_i$, $d_i$ es el grado del vértice.
 \end{frame}
 
 \begin{frame}{Problema de Dirichlet discreto}
-La estructura de red eléctrica es una solución al problema de Dirichlet discreto
-en la gráfica $(\Gamma, \omega)$ cuando la frontera es $\{s,t\}$.
+Definir una estructura de red eléctrica es equivalente a
+resolver un problema de Dirichlet discreto
+cuando la frontera es $\{s,t\}$
 
 \bigskip
 \bigskip
@@ -1135,7 +1175,7 @@ eléctrica a través de la ley de Ohm:
 \end{frame}
 
 \begin{frame}{Funciones armónicas}
-Para una función continua en un abierto $A\subset\bC$...
+Para una función continua en un abierto $A\subset\bC$,
 \[
     h(a)=\frac{1}{2\pi}\int_0^{2\pi}h(a+re^{i\theta})\,d\theta.
 \]
@@ -1170,32 +1210,33 @@ $f\colon V\rightarrow \bR$ es \emphdef{armónica} en $U\subset V$ si
 \end{tikzpicture},
 \qquad\qquad
 P=
-\begin{bmatrix}
-0 & 1/2 & 0 \\
-1 & 0   & 1 \\
-0 & 1/2 & 0 \\
-\end{bmatrix}
+\begin{blockarray}{cccc}
+& \mathcolor{blue}{s} & \mathcolor{blue}{1} & \mathcolor{blue}{t}\\
+\begin{block}{c(ccc)}
+\mathcolor{blue}{s} & 0 & 1/2 & 0 \\
+\mathcolor{blue}{1} & 1 & 0   & 1 \\
+\mathcolor{blue}{t} & 0 & 1/2 & 0 \\
+\end{block}
+\end{blockarray}
 \end{equation*}
 
-\begin{equation*}
-\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-    \node[my state] (s) at (0,0) {$s$};
-    \node[my state] (1) at (2,0) {$1$};
-    \node[my state] (t) at (4,0) {$t$};
+%\begin{equation*}
+%\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+%    \node[my state] (s) at (0,0) {$s$};
+%    \node[my state] (1) at (2,0) {$1$};
+%    \node[my state] (t) at (4,0) {$t$};
+%
+%    \path[every node]
+%    (1) edge[->, bend right] node[above] {$1/2$} (s);
+%    \path[every node]
+%    (s) edge[->, bend right] node[below] {$1$} (1);
+%    \path[every node]
+%    (1) edge[->, bend left] node[above] {$1/2$} (t);
+%    \path[every node]
+%    (t) edge[->, bend left] node[below] {$1$} (1);
+%\end{tikzpicture}
+%\end{equation*}
 
-    \path[every node]
-    (1) edge[->, bend right] node[above] {$1/2$} (s);
-    \path[every node]
-    (s) edge[->, bend right] node[below] {$1$} (1);
-    \path[every node]
-    (1) edge[->, bend left] node[above] {$1/2$} (t);
-    \path[every node]
-    (t) edge[->, bend left] node[below] {$1$} (1);
-\end{tikzpicture}
-\end{equation*}
-
-\bigskip
-\bigskip
 
 Un voltaje (función armónica) $\phi$ debe satisfacer
 \[
@@ -1203,33 +1244,39 @@ Un voltaje (función armónica) $\phi$ debe satisfacer
 \]
 Condiciones de frontera $\phi(s)=0$ y $\phi(t)=1$ implican $\phi(1)=1/2$
 
-Aplicando la ley de Ohm...
+\pause
 
+Aplicando la ley de Ohm,
 \[
     i = 
-    \begin{bmatrix}
-    0 & 1/4 & 0 \\
-    -1/4 & 0 & 1/4 \\
-    0 & -1/4 & 0\\
-    \end{bmatrix}
+    \begin{blockarray}{cccc}
+    & \mathcolor{blue}{s} & \mathcolor{blue}{1} & \mathcolor{blue}{t}\\
+    \begin{block}{c(ccc)}
+    \mathcolor{blue}{s} & 0 & 1/4 & 0 \\
+    \mathcolor{blue}{1} & -1/4 & 0 & 1/4 \\
+    \mathcolor{blue}{t} & 0 & -1/4 & 0\\
+    \end{block}
+    \end{blockarray}
 \]
 
 \end{frame}
 
 \begin{frame}{Problema de Dirichlet discreto}
-\begin{thm}
+Se cumplen las siguientes afirmaciones
+\begin{itemize}
+    \item
     Cualquier combinación lineal de funciones armónicas también es armónica
-\end{thm}
 
-\begin{thm}
+    \item
     Si $\psi$ es una función armónica que satisface $\psi(s)=\psi(t)=0$,
     entonces $\psi$ es idénticamente cero.
-\end{thm}
-
-\begin{thm}
+    
+    \item
     Cualquiera dos soluciones al problema de Dirichlet discreto son 
     necesariamente iguales
-\end{thm}
+\end{itemize}
+
+\bigskip\pause
 
 \begin{thm}
     Siempre existe una solución al problema de Dirichlet discreto y ésta es única.
@@ -1324,68 +1371,48 @@ que
     si $u\neq s,t$, entonces $J_u=\sum_{v\in V}j_{uv}=0$
 \end{itemize}
 
+La corriente eléctrica $i$ es un ejemplo de $(s,t)$-flujo. Podemos tener
+varios $(s,t)$-flujos pero sólo una corriente eléctrica.
+
 \bigskip
 
-La corriente eléctrica $i$ es un ejemplo de $(s,t)$-flujo.
-
-\bigskip\pause
-\bigskip
-
-Notemos que
-\begin{equation*}
-    J_s+J_t = \sum_{u\in V}J_u = \sum_{u,v\in V}j_{uv}
-    = \frac{1}{2}\sum_{u,v\in V}(j_{uv}+j_{vu}) = 0
-\end{equation*}
-por lo que $J_s = -J_t$. Convenimos en que $J_s>0$.
-
-\end{frame}
-
-\begin{frame}{Flujos y energía disipada}
 \emphdef{Energía disipada} de un $(s,t)$-flujo $j$:
 \[
     E(j) = \sum_{e_\in E}j_e^2 r_e = \frac{1}{2}\sum_{u,v\in V}j_{uv}^2 r_{uv}
 \]
 
-Con la identidad 
-\begin{prop}[Principio de conservación de la energía]
-    Para $\psi\colon V\rightarrow \bR$ y $j$ un $(s,t)$-flujo se cumple que
-    \[
-        (\psi(t)-\psi(s))J_s = \frac{1}{2}\sum_{u,v\in V}(\psi(v)-\psi(u))j_{uv}
-    \]
-    
-\end{prop}
-en una red eléctrica con voltaje $\phi$ y corriente $i$ se tiene que
+\end{frame}
+
+
+\begin{frame}{Resistencia efectiva}
+En una red eléctrica con voltaje $\phi$ y corriente $i$ se puede demostrar que
 \[
     (\phi(t)-\phi(s))\cI_s = E(i)
 \]
 
-\end{frame}
-
-\begin{frame}{Resistencia efectiva}
 \emphdef{Resistencia efectiva}: 
 \[
-    \Reff =\frac{E(i)}{\cI_s^2} =\cdots = \frac{\phi(t)-\phi(s)}{\cI_s}
+    \Reff =\frac{\phi(t)-\phi(s)}{\cI_s} =\cdots = \frac{E(i)}{\cI_s^2} 
 \]
 Está alineada a la ley de Ohm. ($V=RI$.)
 \end{frame}
 
 \begin{frame}{Principio de Rayleigh}
-\begin{thm}[Principio de Thomson]
-    El $(s,t)$-flujo que satisface las leyes de Kirchhoff es el único flujo
-    $i$ que minimiza a la energía disipada.
-\end{thm}
+%\begin{thm}[Principio de Thomson]
+%    El $(s,t)$-flujo que satisface las leyes de Kirchhoff es el único flujo
+%    $i$ que minimiza a la energía disipada.
+%\end{thm}
+%
+%Podemos tener varios $(s,t)$-flujos pero sólo una corriente en la red eléctrica.
+%Fijada a través del voltaje por ser solución al problema de Dirichlet discreto.
 
-Podemos tener varios $(s,t)$-flujos pero sólo una corriente en la red eléctrica.
-Fijada a través del voltaje por ser solución al problema de Dirichlet discreto.
-
-\bigskip
-\bigskip
 
 \begin{thm}[Principio de Rayleigh] 
     La resistencia efectiva de una
     red eléctrica es creciente como función de las resistencias $r_e$ de las
     aristas ($e\in E$).
 \end{thm}
+\bigskip
 \bigskip
 
 \begin{tabular}{c c c}
@@ -1436,7 +1463,6 @@ Nos fijamos en $\Gamma_n = (V_n, E_n)$.
     \quad \bar{V\setminus\Delta_n}=I_n\\
 \end{align*}
 
-*Aquí va un dibujo*
 
 \end{frame}
 
@@ -1579,15 +1605,12 @@ De manera que en $\Gamma_n$ obtenemos la red
         (2) edge[-,bend right=40] node[below] {$12$} (3);
     \end{tikzpicture}
 \end{center}
-\bigskip
-\bigskip
-Otro dibujo aquí (cómo se obtiene la gráfica de arriba)
 \end{frame}
 
 \begin{frame}{Demostración del T. de Polya}{\large Caso $d=2$}
 Para cada $n$, tenemos que
 \[
-    \sum_{n=1}^\infty \frac{4}{8n-4} \leq \Reff(n)
+    \sum_{k=1}^n \frac{4}{8k-4} \leq \Reff(n)
 \]
 \bigskip
 Por lo que
@@ -1609,9 +1632,9 @@ Queremos construir un $(0,\infty)$-flujo con energía finita.
         x radius=1cm,
         y radius=0.25cm
     ];
-    \draw[gray!30,->] (0,0) -- (8,0);
-    \draw[gray!30,->] (0,0) -- (0,2);
-    \draw[gray!30,->] (0,0) -- (-1.5,-1.5);
+    \draw[gray!40,->,>=latex,line width=1.5pt] (0,0) -- (8,0);
+    \draw[gray!40,->,>=latex,line width=1.5pt] (0,0) -- (0,2);
+    \draw[gray!40,->,>=latex,line width=1.5pt] (0,0) -- (-1.5,-1.5);
 
     \filldraw[black] (6,0) circle(1pt)
     node[anchor=north] {$u$};
@@ -1630,10 +1653,10 @@ Queremos construir un $(0,\infty)$-flujo con energía finita.
     \draw[dotted] (5.25,-0.75) -- (5.25,1.25);
     \draw[dotted] (5.25,-0.75) -- (7.25,-0.75);
 
-    \draw[dashed,blue!40] (0,0) -- (4.75,0.75);
-    \draw[dashed,blue!40] (0,0) -- (4.75,-1.25);
-    \draw[dashed,blue!40] (0,0) -- (5.25,1.25);
-    \draw[dashed,blue!40] (0,0) -- (5.25,-0.75);
+    \draw[dashed,line width=1pt,blue!40] (0,0) -- (4.75,0.75);
+    \draw[dashed,line width=1pt,blue!40] (0,0) -- (4.75,-1.25);
+    \draw[dashed,line width=1pt,blue!40] (0,0) -- (5.25,1.25);
+    \draw[dashed,line width=1pt,blue!40] (0,0) -- (5.25,-0.75);
 
 \end{tikzpicture}
 \end{center}
@@ -1660,10 +1683,11 @@ $j$ es un $(0,\infty)$-flujo no trivial ($J_0\neq 0$)
     \item
     $j_{uv}=0$ si $\{u,v\}$ no es arista de $\Gamma$
 \end{itemize}
-\bigskip
-Sólo falta ver que tiene energía finita. Unas estimaciones...
+\end{frame}
 
-\bigskip
+\begin{frame}{Demostración del T. de Polya}{Caso $d=3$}
+Sólo falta ver que tiene energía finita. Unas estimaciones,
+
 \bigskip
 
 Cuando $\|u\|$ es grande, $\|(u_1-1,u_2,u_3-1)\|\approx\|u\|$, de manera que
@@ -1672,6 +1696,9 @@ Cuando $\|u\|$ es grande, $\|(u_1-1,u_2,u_3-1)\|\approx\|u\|$, de manera que
     -\frac{(u_1+1,u_2,u_3-1)}{\|(u_1+1,u_2,u_3-1)\|}\right\|\approx
     \frac{\|(2,0,0)\|}{\|u\|}=\frac{2}{\|u\|}
 \]
+
+\bigskip
+
 y luego
 \[
     |j_{uv}|=\left|\int_{\Pi_v}\,dS\right|\leq
@@ -1688,16 +1715,13 @@ que contar particiones de $n$.) Entonces
     |\{u\colon\ d(0,u)=n\}| \leq Bn^2
 \]
 
-\bigskip
-\bigskip
-
 Acotemos la energía por arriba.
 \begin{align*}
     E(j)=\sum_{u\neq 0}\sum_{v\sim u}j_{uv}^2r_{uv}
     &=\sum_{u\neq 0}\sum_{v\sim u}6j_{uv}\\
     &\leq \sum_{d(0,u)\geq 1}\sum_{v\sim u}6\Big(\frac{A}{d(0,u)^2}\Big)^2\\
-    &=\sum_{n=1}^\infty \sum_{v\sim u}6\Big(\frac{A}{n^2}\Big)^2\\
-    &\leq\sum_{n=1}^\infty 6Bn^2\Big(\frac{A}{n^2}\Big)^2 <\infty\\
+    &=\sum_{n=1}^\infty \sum_{v\sim u}6\Big(\frac{A}{n^2}\Big)^2
+    \leq\sum_{n=1}^\infty 6Bn^2\Big(\frac{A}{n^2}\Big)^2 <\infty\\
 \end{align*}
 
 \end{frame}
@@ -1809,6 +1833,11 @@ que
 \end{align*}
 Llamada la \emphdef{función de Bessel modificada} del primer tipo, de orden $\alpha$.
 
+\end{frame}
+
+
+
+\begin{frame}
 
 Tenemos estas representaciones
 \alt<2>{
@@ -1888,30 +1917,22 @@ $d\geq 3$
 ${\bm p_n}$: la probabilidad de que una caminata regrese al origen
 por primera vez después de $n$ pasos
 
-\alt<3>{
-\begin{align*}
-    p &= \sum_{n=0}^\infty p_n = \sum_{n=1}^\infty p_n, \qquad p_0=0\\
-    \mathcolor{red}{P(z) }& \mathcolor{red}{=\sum_{n=0}^\infty p_nz^n}
-\end{align*}
-}{
 \[
     p = \sum_{n=0}^\infty p_n = \sum_{n=1}^\infty p_n, \qquad p_0=0
 \]
-}
 
-\bigskip
 
 ${\bm q_n}$: la probabilidad de que una caminata regrese al origen
 después de $n$ pasos
-\onslide<3>
+\onslide<2>
 \mathcolor{red}{
-\[
-    Q(z) = \sum_{n=0}^\infty q_nz^n = 1 + \sum_{n=1}^\infty q_nz^n,\qquad q_0=1
-\]
+\begin{align*}
+    Q(z) = \sum_{n=0}^\infty q_nz^n = 1 + \sum_{n=1}^\infty q_nz^n,\quad q_0=1,
+    \qquad
+    P(z)=\sum_{n=0}^\infty p_nz^n
+\end{align*}
 }
 
-\bigskip
-\bigskip
 
 \end{frame}
 
@@ -1920,15 +1941,13 @@ después de $n$ pasos
 \emphdef{no se descompone} si no se puede expresar como concatenación
 de bucles no triviales
 
-\bigskip
 
 ${\bm \ell_n}$: cantidad de bucles de longitud $n$
 
-\bigskip
 
 ${\bm r_n}$: cantidad de bucles que no se descomponen de longitud $n$
 
-\bigskip\pause
+\pause
 
 Todo bucle se expresa como concatenación de un bucle indescomponible seguido
 de otro bucle posiblemente trivial
@@ -1995,8 +2014,7 @@ Nos concentramos en la función generadora exponencial
     \cB E = L
 \]
 
-\bigskip
-\bigskip
+\pause
 
 Veamos que podemos escribir a $E_2$ en términos de $E_1$. Un bucle
 de longitud $n$ en $\bZ^2$ consta de un bucle vertical de longitud $k$
@@ -2004,9 +2022,9 @@ y otro horizontal de longitud $n-k$, ambos vistos en $\bZ^1$. Esta mezcla
 de bucles no está ordenada, de manera que
 \[
     \ell_n^{(2)}=\sum_{k=0}^n \binom{n}{k}\ell_k^{(1)}\ell_{n-k}^{(1)}
-    \quad\qquad \Longrightarrow \quad\qquad 
+    \quad\quad \Longrightarrow \quad\quad 
     E_2(z) = E_1(z)^2
-    \quad\qquad \Longrightarrow \quad\qquad 
+    \quad\quad \Longrightarrow \quad\quad 
     E_d(z) = E_1(z)^d
 \]
 
@@ -2030,9 +2048,9 @@ y luego
 \[
     E_1(z) = \sum_{k=0}^\infty \binom{2k}{k}\frac{z^{2k}}{(2k)!}
     =\sum_{k=0}^\infty \frac{z^{2k}}{k!k!}
-    \quad\quad \Longrightarrow \quad\quad 
+    \  \Longrightarrow \  
     I_0(2z)=\sum_{k=0}^\infty \frac{z^{2k}}{k!k!}=E_1(z),
-    \quad\quad \Longrightarrow \quad\quad 
+    \  \Longrightarrow \  
     E_d(z) = I_0(2z)^d
 \]
 
@@ -2089,7 +2107,7 @@ Es por esto que
 
 \bigskip
 
-Como la integral converge para $d\geq 3$ y diverge cuando $d=1,2$...
+Como la integral converge para $d\geq 3$ y diverge cuando $d=1,2$
 
 \bigskip
 \bigskip
