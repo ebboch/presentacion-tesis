@@ -16,6 +16,7 @@
 \setbeamercovered{transparent}
 \definecolor{cinves}{rgb}{0.13, 0.7, 0.67}
 \usepackage{blkarray}
+\usepackage{array}
 
 \usetheme{Warsaw}
 \useoutertheme[subsection=false,shadow=true]{miniframes}
@@ -246,7 +247,7 @@ Departamento de Matemáticas\\
 \end{frame}
 
 \begin{frame}{Digráfica asociada a una matriz no negativa}
-    \textbf{Motivación} 
+    \textbf{Correspondencia entre matrices y digráficas} 
     \bigskip\pause
     \begin{itemize}
         \item
@@ -909,13 +910,13 @@ nos quedemos con $i$. El algoritmo no favorece saltos muy pronunciados.}
 
 \alt<2>
 {
-$1\xrightarrow{60/100} 2$, como $Q_{12}\pi_1> Q_{21}\pi_2$, 
+$1\xrightarrow{60/100} 2$, como $Q_{21}\pi_1> Q_{12}\pi_2$, 
 \begin{align*}
     \text{lanzamos moneda }\underbrace{10/11}_{2},\quad \underbrace{1/11}_{1}
 \end{align*}
 }
 {
-$2\xrightarrow{99/100} 1$ es aceptado porque $Q_{21}\pi_2\leq Q_{12}\pi_1$
+$2\xrightarrow{99/100} 1$ es aceptado porque $Q_{12}\pi_2\leq Q_{21}\pi_1$
 }
 \end{frame}
 
@@ -979,34 +980,37 @@ $2\xrightarrow{99/100} 1$ es aceptado porque $Q_{21}\pi_2\leq Q_{12}\pi_1$
 %
 %\end{frame}
 
-\begin{frame}{Caminatas recurrentes y transitorias}
-Una caminata aleatoria que inicia en $0$ es \emphdef{recurrente} si la probabilidad
-de que regrese a $0$ es igual a $1$. Si esa probabilidad es $p<1$,
-entonces es \emphdef{transitoria}
-
-\bigskip
-\bigskip
-
-Equivalentemente, es recurrente si la probabilidad de regresar una {\it infinidad}
-de veces a $0$ es igual a $1$.
-
-\bigskip
-\bigskip
-
-Es transitoria si la probabilidad de regresar una {\it cantidad finita} de veces
-a $0$ es igual a $1$.
-    
-
-\end{frame}
+%\begin{frame}{Caminatas recurrentes y transitorias}
+%Una caminata aleatoria que inicia en $0$ es \emphdef{recurrente} si la probabilidad
+%de que regrese a $0$ es igual a $1$. Si esa probabilidad es $p<1$,
+%entonces es \emphdef{transitoria}
+%
+%%\bigskip
+%%\bigskip
+%%
+%%Equivalentemente, es recurrente si la probabilidad de regresar una {\it infinidad}
+%%de veces a $0$ es igual a $1$.
+%%
+%%\bigskip
+%%\bigskip
+%%
+%%Es transitoria si la probabilidad de regresar una {\it cantidad finita} de veces
+%%a $0$ es igual a $1$.
+%    
+%
+%\end{frame}
 
 \begin{frame}{Teorema de recurrencia de Polya}
+Una caminata aleatoria que inicia en $0$ es \emphdef{recurrente} si la probabilidad
+de que regrese a $0$ es igual a $1$. Si esa probabilidad es $p<1$,
+entonces es \emphdef{transitoria}\pause
 
 \begin{thm}[Polya]
     Toda caminata aleatoria simple en $\bZ^d$ es recurrente cuando $d=1,2$ y transitoria
     cuando $d\geq 3$.
 \end{thm}
 \begin{center}
-\begin{tikzpicture}[scale=1.50]
+\begin{tikzpicture}[scale=1.4]
     \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (4,0);
     \draw[gray!50,->,>=latex,line width=1.5pt] (0,-1.5) -- (0,2);
     \filldraw[black] (4,2) circle(0pt)
@@ -1453,17 +1457,102 @@ Está alineada a la ley de Ohm. ($V=RI$.)
 Nos concentramos en la malla $\bZ^d$. Comenzamos por definir resistencia efectiva
 partiendo de subgráficas finitas.
 
-\bigskip
-
 Nos fijamos en $\Gamma_n = (V_n, E_n)$. 
 \begin{align*}
     \Delta_n &= \{v\in V\colon\ d(0,v)\leq n\}\\
-    &\\
     V_{n+1} &= \Delta_n\ \cup\ \bar{V\setminus\Delta_n},
     \quad \bar{V\setminus\Delta_n}=I_n\\
 \end{align*}
 
+\begin{center}
+\begin{tabular}{>{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm}}
+%\begin{tabular}{c c c c >{\centering\arraybackslash}m{1cm} }
+$\Gamma_1$ & & $\Gamma_2$ & & \\
+\begin{tikzpicture}
+    \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (1.5,0);
+    \draw[gray!50,->,>=latex,line width=1.5pt] (0,-1.5) -- (0,1.5);
 
+    \draw[black,line width=0.5pt] (-1,0) -- (1,0);
+    \draw[black,line width=0.5pt] (0,-1) -- (0,1);
+
+    \filldraw[black] (0,0) circle(1.5pt)
+    node[anchor=north] {};
+
+    \filldraw[black] (1,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (-1,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0,1) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0,-1) circle(1.5pt)
+    node[anchor=north] {};
+
+    \node[anchor=west] at (1,1) (In) {\small $I_1$};
+    \filldraw[black] (1,1) circle(1.5pt)
+    node[anchor=west] {};
+    \draw (0,1) edge[out=20,in=160,dashed,-] (1,1);
+    \draw (-1,0) edge[out=40,in=190,dashed,-] (1,1);
+    \draw (0,-1) edge[out=45,in=260,dashed,-] (1,1);
+    \draw (1,0) edge[out=60,in=290,dashed,-] (1,1);
+\end{tikzpicture}
+& &
+\begin{tikzpicture}
+    \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (1.5,0);
+    \draw[gray!50,->,>=latex,line width=1.5pt] (0,-1.5) -- (0,1.5);
+
+    \filldraw[black] (0,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0.5,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (-0.5,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0,0.5) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0,-0.5) circle(1.5pt)
+    node[anchor=north] {};
+    
+    \filldraw[black] (1,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (-1,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0,1) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0,-1) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0.5,0.5) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (-0.5,0.5) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (0.5,-0.5) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[black] (-0.5,-0.5) circle(1.5pt)
+    node[anchor=north] {};
+
+    \draw[black,line width=0.5pt] (0,-1) -- (0,-0.5);
+    \draw[black,line width=0.5pt] (-1,0) -- (-0.5,0);
+    \draw[black,line width=0.5pt] (0.5,0) -- (1,0);
+    \draw[black,line width=0.5pt] (0,0.5) -- (0,1);
+    \draw[black,line width=0.5pt] (-0.5,0.5) -- (-0.5,-0.5);
+    \draw[black,line width=0.5pt] (-0.5,-0.5) -- (0.5,-0.5);
+    \draw[black,line width=0.5pt] (0.5,-0.5) -- (0.5,0.5);
+    \draw[black,line width=0.5pt] (0.5,0.5) -- (-0.5,0.5);
+    
+    \draw[black,line width=0.5pt] (0,0) -- (0,-0.5);
+    \draw[black,line width=0.5pt] (0,0) -- (0,0.5);
+    \draw[black,line width=0.5pt] (0,0) -- (0.5,0);
+    \draw[black,line width=0.5pt] (0,0) -- (-0.5,0);
+
+    \node[anchor=west] at (1,1) (In) {\small $I_2$};
+    \filldraw[black] (1,1) circle(1.5pt)
+    node[anchor=west] {};
+    \draw (0,1) edge[out=20,in=160,dashed,-] (1,1);
+    \draw (1,0) edge[out=60,in=290,dashed,-] (1,1);
+    \draw (0.5,0.5) edge[out=30,in=210,dashed,-] (1,1);
+\end{tikzpicture}
+& & $\cdots$ \\
+$\Reff(1)$ & $\leq$ & $\Reff(2)$ & $\leq$ & 
+\end{tabular}
+\end{center}
 \end{frame}
 
 \begin{frame}{Resistencia efectiva y recurrencia}
@@ -1480,8 +1569,6 @@ Entonces, en la malla $\bZ^d$ definimos
     \Reff = \lim_{n\to\infty}\Reff(n)
 \]
 
-
-\bigskip
 \end{frame}
 
 \begin{frame}{Resistencia efectiva y recurrencia}
@@ -1528,7 +1615,7 @@ Para el caso $d\geq 3$ introducimos el concepto de $(0,\infty)$-flujo
 \end{thm}
 \end{frame}
 
-\begin{frame}{Demostración del T. de Polya}
+\begin{frame}{Demostración del Teorema de Polya}
 {\large Caso $d=1$}
 Para $d=1$, tenemos
 
@@ -1575,7 +1662,7 @@ Por lo que el teorema se cumple en $\bZ^1$
 
 \end{frame}
 
-\begin{frame}{Demostración del T. de Polya}{\large Caso $d=2$}
+\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=2$}
 En cada $\Gamma_n$ acotamos su $\Reff(n)$ por abajo. En $\Gamma_n$ identificamos
 los conjuntos $\partial\Delta_1,\partial\Delta_2,\dots,\partial\Delta_{n-1}$.
 De manera que en $\Gamma_n$ obtenemos la red
@@ -1605,9 +1692,99 @@ De manera que en $\Gamma_n$ obtenemos la red
         (2) edge[-,bend right=40] node[below] {$12$} (3);
     \end{tikzpicture}
 \end{center}
+\begin{center}
+\begin{tabular}{>{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm}}
+%\begin{tabular}{c c c c >{\centering\arraybackslash}m{1cm} }
+$\Gamma_1$ & & $\Gamma_2$ & & \\
+\begin{tikzpicture}
+    \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (1.5,0);
+    \draw[gray!50,->,>=latex,line width=1.5pt] (0,-1.5) -- (0,1.5);
+
+    \draw[blue,line width=0.5pt] (-1,0) -- (1,0);
+    \draw[blue,line width=0.5pt] (0,-1) -- (0,1);
+
+    \filldraw[black] (0,0) circle(1.5pt)
+    node[anchor=north] {};
+
+    \filldraw[blue] (1,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (-1,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (0,1) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (0,-1) circle(1.5pt)
+    node[anchor=north] {};
+
+    \node[anchor=west] at (1,1) (In) {\small $I_1$};
+    \filldraw[black] (1,1) circle(1.5pt)
+    node[anchor=west] {};
+    \draw (0,1) edge[out=20,in=160,dashed,-] (1,1);
+    \draw (1,0) edge[out=60,in=290,dashed,-] (1,1);
+
+\end{tikzpicture}
+& &
+\begin{tikzpicture}
+    \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (1.5,0);
+    \draw[gray!50,->,>=latex,line width=1.5pt] (0,-1.5) -- (0,1.5);
+    
+    \filldraw[blue] (1,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (-1,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (0,1) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (0,-1) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (0.5,0.5) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (-0.5,0.5) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (0.5,-0.5) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[blue] (-0.5,-0.5) circle(1.5pt)
+    node[anchor=north] {};
+
+    \draw[red,line width=0.5pt] (0,0) -- (0,-0.5);
+    \draw[red,line width=0.5pt] (0,0) -- (0,0.5);
+    \draw[red,line width=0.5pt] (0,0) -- (0.5,0);
+    \draw[red,line width=0.5pt] (0,0) -- (-0.5,0);
+
+    \draw[blue,line width=0.5pt] (0,-1) -- (0,-0.5);
+    \draw[blue,line width=0.5pt] (-1,0) -- (-0.5,0);
+    \draw[blue,line width=0.5pt] (0.5,0) -- (1,0);
+    \draw[blue,line width=0.5pt] (0,0.5) -- (0,1);
+    \draw[blue,line width=0.5pt] (-0.5,0.5) -- (-0.5,-0.5);
+    \draw[blue,line width=0.5pt] (-0.5,-0.5) -- (0.5,-0.5);
+    \draw[blue,line width=0.5pt] (0.5,-0.5) -- (0.5,0.5);
+    \draw[blue,line width=0.5pt] (0.5,0.5) -- (-0.5,0.5);
+    
+    \node[anchor=west] at (1,1) (In) {\small $I_2$};
+    \filldraw[black] (1,1) circle(1.5pt)
+    node[anchor=west] {};
+    \draw (0,1) edge[out=20,in=160,dashed,-] (1,1);
+    \draw (1,0) edge[out=60,in=290,dashed,-] (1,1);
+    \draw (0.5,0.5) edge[out=30,in=210,dashed,-] (1,1);
+
+    \filldraw[black] (0,0) circle(1.5pt)
+    node[anchor=north] {};
+    
+    \filldraw[red] (0.5,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[red] (-0.5,0) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[red] (0,0.5) circle(1.5pt)
+    node[anchor=north] {};
+    \filldraw[red] (0,-0.5) circle(1.5pt)
+    node[anchor=north] {};
+
+\end{tikzpicture}
+& & $\cdots$ \\
+%$\Reff(1)$ & $\leq$ & $\Reff(2)$ & $\leq$ & 
+\end{tabular}
+\end{center}
 \end{frame}
 
-\begin{frame}{Demostración del T. de Polya}{\large Caso $d=2$}
+\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=2$}
 Para cada $n$, tenemos que
 \[
     \sum_{k=1}^n \frac{4}{8k-4} \leq \Reff(n)
@@ -1620,7 +1797,7 @@ Por lo que
 y el teorema se cumple en $\bZ^2$
 \end{frame}
 
-\begin{frame}{Demostración del T. de Polya}{\large Caso $d=3$}
+\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=3$}
 Queremos construir un $(0,\infty)$-flujo con energía finita.
 
 \begin{center}
@@ -1649,9 +1826,9 @@ Queremos construir un $(0,\infty)$-flujo con energía finita.
     \draw (4.75,-1.25) -- (4.75,0.75);
     \draw (6.75,-1.25) -- (7.25,-0.75);
     \draw (7.25,-0.75) -- (7.25,1.25);
-    \draw[dotted] (4.75,-1.25) -- (5.25,-0.75);
-    \draw[dotted] (5.25,-0.75) -- (5.25,1.25);
-    \draw[dotted] (5.25,-0.75) -- (7.25,-0.75);
+    \draw[dotted,line width=1pt] (4.75,-1.25) -- (5.25,-0.75);
+    \draw[dotted,line width=1pt] (5.25,-0.75) -- (5.25,1.25);
+    \draw[dotted,line width=1pt] (5.25,-0.75) -- (7.25,-0.75);
 
     \draw[dashed,line width=1pt,blue!40] (0,0) -- (4.75,0.75);
     \draw[dashed,line width=1pt,blue!40] (0,0) -- (4.75,-1.25);
@@ -1668,7 +1845,7 @@ Con el signo de
 
 \end{frame}
 
-\begin{frame}{Demostración del T. de Polya}{\large Caso $d=3$}
+\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=3$}
 $j$ es un $(0,\infty)$-flujo no trivial ($J_0\neq 0$)
 \begin{itemize}
     \item
@@ -1685,7 +1862,7 @@ $j$ es un $(0,\infty)$-flujo no trivial ($J_0\neq 0$)
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Demostración del T. de Polya}{Caso $d=3$}
+\begin{frame}{Demostración del Teorema de Polya...}{Caso $d=3$}
 Sólo falta ver que tiene energía finita. Unas estimaciones,
 
 \bigskip
@@ -1708,7 +1885,7 @@ y luego
 
 \end{frame}
 
-\begin{frame}{Demostración del T. de Polya}{\large Caso $d=3$}
+\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=3$}
 Ahora la cantidad de vértices con $d(0,u)=n$. (En el primer octante, es lo mismo
 que contar particiones de $n$.) Entonces
 \[
@@ -1726,396 +1903,415 @@ Acotemos la energía por arriba.
 
 \end{frame}
 
-\begin{frame}{Vía funciones especiales}
-\begin{itemize}
-    \item[$\rightarrow$]
-    Funciones generadoras 
-
-    \bigskip
-
-    \item[$\rightarrow$]
-    Transformada de Borel 
-
-    \bigskip
-
-    \item[$\rightarrow$]
-    Expresión integral de la función de Bessel modificada del primer tipo
-    de grado cero
-
-    \bigskip
-    
-    \item[$\rightarrow$]
-    Principio de Laplace
-\end{itemize}
-
-\bigskip
-\bigskip
-
-Si $d$ es tal que la
-integral \[ \int_1^\infty t^{-d/2}\,dt \] diverge, entonces una caminata aleatoria
-simple en $\bZ^d$ será recurrente, y será transitoria en otro caso.
-\end{frame}
-
-
-\begin{frame}{Funciones generadoras}{Ordinarias}
-
-\[
-    a_0,a_1,a_2,\dots \quad\longmapsto\quad\sum_{n=0}^\infty a_nz^n
-\]
-
-
-\begin{thm}\label{thm:producto_de_funciones_generadoras_ordinarias}
-    Dada dos estructuras combinatorias $A$ y $B$, sean $a_n$ y $b_n$ el número total de
-    formas posibles de dotar a un conjunto de $n$ elementos con las estructuras
-    $A$ y $B$, respectivamente. Por otro
-    lado, sea $c_n$ el número de formas de partir al conjunto
-    $\{1,\dots,n\}$ en dos intervalos $S=\{1,\dots,i\}$, $T=\{i+1,\dots,n\}$,
-    posiblemente vacíos, y dotarlos de las estructuras $A$ a $S$ y $B$ a $T$.
-    Si $A(x)$, $B(x)$ y $C(x)$ denotan las funciones generadoras ordinarias de las
-    sucesiones $(a_n)$, $(b_n)$ y $(c_n)$, respectivamente, entonces 
-    \[
-        A(x)B(x)=C(x).
-    \]
-\end{thm}
-
-\end{frame}
-
-\begin{frame}{Funciones generadoras}{Exponenciales}
-\[
-    a_0,a_1,a_2,\dots \quad\longmapsto\quad\sum_{n=0}^\infty \frac{a_n}{n!}z^n
-\]
-
-\begin{thm}\label{thm:producto_de_funciones_generadoras_exponenciales}
-    Sean $A$ y $B$ dos estructuras combinatorias. Sean $a_n$ y $b_n$ el número
-    total de formas posibles de dotar a un conjunto de $n$ elementos con las
-    estructuras $A$ y $B$, respectivamente. Por otro lado, sea $c_n$ el número
-    de formas de expresar al conjunto $\{1,\dots,n\}$ como la
-    unión de dos conjuntos $S$, $T$ disjuntos y dotarlos de las estructuras $A$
-    a $S$ y $B$ a $T$.  Si $A(x)$, $B(x)$ y $C(x)$ denotan las funciones
-    generadoras exponenciales de las sucesiones $(a_n)$, $(b_n)$ y $(c_n)$,
-    respectivamente, entonces
-    \[
-        A(x)B(x)=C(x).
-    \]
-\end{thm}
-\end{frame}
-
-\begin{frame}{Transformada de Borel}
-
-La transformada integral
-\[
-    (\cB f)(z) = \int_0^\infty f(tz)e^{-t}\,dt
-    ,
-\]
-es llamada la \emphdef{transformada de Borel} $f$.  
-
-\bigskip
-\bigskip
-\bigskip
-
-\begin{thm}
-    Si $f$ es la función generadora exponencial de $(a_n)$, entonces
-    $\cB f$ es su función generadora ordinaria.
-\end{thm}
-
-\end{frame}
-
-\begin{frame}{Funciones de Bessel modificadas}
-\emphdef{Ecuación de Bessel} de orden $\alpha$
-\[
-    \frac{d^2y}{dx^2}+\frac{1}{x}\frac{dy}{dx}+\Big(1-\frac{\alpha^2}{x^2}\Big)y=0
-\]
-Cuando $\Re\alpha>-1/2$, tenemos soluciones $J_\alpha$. Se puede probar
-que
-\begin{align*}
-    I_\alpha\colon\bR&\longrightarrow\bR\\
-    x&\longmapsto e^{-\alpha\pi i/2}J_\alpha (xe^{\pi i/2})
-\end{align*}
-Llamada la \emphdef{función de Bessel modificada} del primer tipo, de orden $\alpha$.
-
-\end{frame}
-
-
-
-\begin{frame}
-
-Tenemos estas representaciones
-\alt<2>{
-\begin{itemize}
-    \item en serie de potencias
-    \[
-        I_{0}(x)=
-        \sum_{k=0}^\infty \frac{(x/2)^{2k}}{k!k!}.
-    \]
-
-    \item
-    integral
-    \[
-        I_{0} (x)
-        =\frac{1}
-        {\pi}
-        \int_0^\pi e^{x\cos\theta}\,d\theta
-    \]
-\end{itemize}
-}{
-\begin{itemize}
-    \item en serie de potencias
-    \[
-        I_{\mathcolor{red}{\alpha}}(x)=
-        \sum_{k=0}^\infty \frac{(x/2)^{2k+
-        \mathcolor{red}{\alpha}}}{k!\Gamma(k+
-        \mathcolor{red}{\alpha}+1)}.
-    \]
-
-    \item
-    integral
-    \[
-        I_{\mathcolor{red}{\alpha}} (x)
-        =\frac{(x/2)^{\mathcolor{red}{\alpha}}}
-        {\sqrt\pi\Gamma(\mathcolor{red}{\alpha}+1/2)}
-        \int_0^\pi e^{x\cos\theta}(\sin\theta)^{2\mathcolor{red}{\alpha}}\,d\theta
-    \]
-\end{itemize}
-}
-
-\end{frame}
-
-\begin{frame}{Principio de Laplace}
-
-\[
-    I(t)=\int_a^b e^{-t\phi(x)}f(x)\,dx,\quad t\in(0,\infty),
-\]
-
-\bigskip
-\bigskip
-
-\begin{thm}[Princpio de Laplace]\label{thm:principio_de_laplace}
-    Supongamos que $a<b$ y $\phi,f\colon[a,b]\rightarrow\bR$ son suaves en $[a,b]$.
-    Si además $\phi$ posee un mínimo global en $x_0\in(a,b)$, entonces
-    la función $I$ definida arriba satisface
-    \[
-        I(t)\sim \mathrm{cte}\cdot t^{-1/2}e^{-t\phi(x_0)}
-    \]
-    cuando $t\to\infty$. 
-\end{thm}
-
-\end{frame}
-
-\begin{frame}{Demostración del T. de Polya}
-
-${\bm p}$: la probabilidad de una caminata en $\bZ^d$ que comienza en $0$
-regrese al origen
-
-\bigskip
-\begin{block}{Objetivo}
-Mostrar que $p=1$ cuando $d=1,2$ y que $p<1$ cuando
-$d\geq 3$
-\end{block}
-
-\bigskip
-
-${\bm p_n}$: la probabilidad de que una caminata regrese al origen
-por primera vez después de $n$ pasos
-
-\[
-    p = \sum_{n=0}^\infty p_n = \sum_{n=1}^\infty p_n, \qquad p_0=0
-\]
-
-
-${\bm q_n}$: la probabilidad de que una caminata regrese al origen
-después de $n$ pasos
-\onslide<2>
-\mathcolor{red}{
-\begin{align*}
-    Q(z) = \sum_{n=0}^\infty q_nz^n = 1 + \sum_{n=1}^\infty q_nz^n,\quad q_0=1,
-    \qquad
-    P(z)=\sum_{n=0}^\infty p_nz^n
-\end{align*}
-}
-
-
-\end{frame}
-
-\begin{frame}{Relación entre $P$ y $Q$}
-\emphdef{Bucle}: caminata que comiena y termina en el origen,
-\emphdef{no se descompone} si no se puede expresar como concatenación
-de bucles no triviales
-
-
-${\bm \ell_n}$: cantidad de bucles de longitud $n$
-
-
-${\bm r_n}$: cantidad de bucles que no se descomponen de longitud $n$
+\begin{frame}{Teorema de Polya vía funciones especiales}
+Comenzamos por expresar la probabilidad de que una caminata
+regrese al origen en términos de probabilidades más pequeñas. 
+\pause
+Después introducimos funciones generadoras, de manera combinatoria.
+\pause
+Damos una interpretación analítica y analizamos cierto límite.
 
 \pause
-
-Todo bucle se expresa como concatenación de un bucle indescomponible seguido
-de otro bucle posiblemente trivial
-
-\[
-    \ell_n = \sum_{k=0}^nr_k\ell_{n-k}, \qquad n\geq 1
-\]
-
+\bigskip
 \bigskip
 
-Al dividir entre $(2d)^n$, el número de caminatas de longitud $n$ en $\bZ^d$
-
+Al final, el teorema es equivalente a estudiar la convergencia 
+o divergencia de la integral
 \[
-    q_n = \sum_{k=0}^np_kq_{n-k}, \qquad n\geq 1 
-    \quad\qquad\Longrightarrow\quad\qquad
-    P(z)Q(z) = Q(z)-1\ \text{en }\bR[[z]]
-\]
-
-\end{frame}
-
-\begin{frame}{$P$ y $Q$ como funciones analíticas en $\bD\subset\bC$}
-Tenemos $0\leq p_n\leq q_n\leq 1$ y entonces
-\[
-    \text{radio de convergencia} = \frac{1}{\limsup p_n} \geq 1
-\]
-
-\bigskip
-
-\[
-    P,Q\colon\bD\rightarrow\bC
-\]
-
-\bigskip
-
-Cuando $z\in[0,1)$, $Q(z)\geq 1$. De manera que si $0\leq z< 1$
-\[
-    P(z) = 1-\frac{1}{Q(z)}
-\]
-
-\bigskip
-
-Del teorema de series de potencias de Abel
-\[
-    p = \lim_{\substack{z\to 1\\z\in[0,1)}}P(z)
-    =1-\frac{1}{\lim_{\substack{z\to 1\\z\in[0,1)}}Q(z)}
-\]
-
-\end{frame}
-
-\begin{frame}{Contando bucles en $\bZ^d$}
-Estamos analizando $Q$
-\[
-    L(z) = \sum_{n=0}^\infty \ell_nz^n
-    \quad\qquad \Longrightarrow \quad\qquad 
-    Q(z)=L(z/2d)
-\]
-\bigskip
-
-Nos concentramos en la función generadora exponencial
-
-\[
-    E(z) = \sum_{n=0}^\infty \ell_n\frac{z^n}{n!}
-    \quad\qquad \Longrightarrow \quad\qquad 
-    \cB E = L
-\]
-
-\pause
-
-Veamos que podemos escribir a $E_2$ en términos de $E_1$. Un bucle
-de longitud $n$ en $\bZ^2$ consta de un bucle vertical de longitud $k$
-y otro horizontal de longitud $n-k$, ambos vistos en $\bZ^1$. Esta mezcla
-de bucles no está ordenada, de manera que
-\[
-    \ell_n^{(2)}=\sum_{k=0}^n \binom{n}{k}\ell_k^{(1)}\ell_{n-k}^{(1)}
-    \quad\quad \Longrightarrow \quad\quad 
-    E_2(z) = E_1(z)^2
-    \quad\quad \Longrightarrow \quad\quad 
-    E_d(z) = E_1(z)^d
-\]
-
-
-\end{frame}
-
-
-\begin{frame}{$E_1$ y la función de Bessel modificada $I_0$}
-No hay bucles de longitud impar en $\bZ^1$. Entonces
-\[
-    \ell_n^{(1)}=\begin{cases}
-                \binom{2k}{k} & \text{si }n=2k\text{ es par} \\
-                0             & \text{si }n\text{ es impar}
-    \end{cases}
-\]
-
-
-y luego
-
-
-\[
-    E_1(z) = \sum_{k=0}^\infty \binom{2k}{k}\frac{z^{2k}}{(2k)!}
-    =\sum_{k=0}^\infty \frac{z^{2k}}{k!k!}
-    \  \Longrightarrow \  
-    I_0(2z)=\sum_{k=0}^\infty \frac{z^{2k}}{k!k!}=E_1(z),
-    \  \Longrightarrow \  
-    E_d(z) = I_0(2z)^d
-\]
-
-\bigskip
-
-Por lo tanto
-\[
-    Q_d(z) = L_d\Big(\frac{z}{2d}\Big) = \cB\Big(E_d\Big(\frac{z}{2d}\Big)\Big)=
-    \int_0^\infty I_0\Big(\frac{tz}{d}\Big)^de^{-t}\,dt.
+    \int_1^\infty t^{-d/2}\,dt
 \]
 \end{frame}
 
-\begin{frame}{Estimando $I_0$ a través de su rep. integral}
-Tenemos
-\[
-    I_0\Big(\frac{tz}{d}\Big)=\frac{1}{\pi}\int_0^\pi e^{(tz/d)\cos\theta}
-    \,d\theta
-\]
-
-\bigskip
-
-Del principio de Laplace
-\[
-    I_0\Big(\frac{tz}{d}\Big)_0
-    \sim \mathrm{cte}\cdot (tz)^{-1/2}e^{tz/d}
-\]
-cuando $t\to\infty$, de manera que
-
-\[
-    \int_N^\infty I_0\Big(\frac{tz}{d}\Big)^d e^{-t}\,dt\sim 
-    \int_N^\infty \mathrm{cte}\cdot e^{t(z-1)}(tz)^{-d/2}\,dt
-\]
-
-La colección de funciones $t\mapsto e^{t(z-1)}(tz)^{-d/2}$
-es creciente precisamente cuando $z\to 1$ con $z$ real, por el teorema
-de convergencia monótona de Lebesgue, 
-\[
-    \lim_{\substack{z\to 1\\z\in[0,1)}}\int_N^\infty e^{t(z-1)}(tz)^{-d/2}\,dt
-    =\int_N^\infty \lim_{\substack{z\to 1\\z\in[0,1)}}e^{t(z-1)}(tz)^{-d/2}\,dt
-    =\int_N^\infty t^{-d/2}\,dt
-    .
-\]
-
-\end{frame}
-
-\begin{frame}{Análisis de $Q$}
-Es por esto que 
-\[
-    \lim_{\substack{z\to 1\\z\in[0,1]}}Q(z)=
-    \lim_{\substack{z\to 1\\z\in[0,1]}}
-    \int_N^\infty I_0\Big(\frac{tz}{d}\Big)^de^{-t}\,dt
-    \sim\mathrm{cte}\cdot\int_N^\infty t^{-d/2}\,dt 
-\]
-
-\bigskip
-
-Como la integral converge para $d\geq 3$ y diverge cuando $d=1,2$
-
-\bigskip
-\bigskip
-
-Tenemos $p=1$ cuando $d=1,2$ y $p<1$ en el caso $d\geq 3$
-
-
-\end{frame}
+%\begin{frame}{Vía funciones especiales}
+%\begin{itemize}
+%    \item[$\rightarrow$]
+%    Funciones generadoras 
+%
+%    \bigskip
+%
+%    \item[$\rightarrow$]
+%    Transformada de Borel 
+%
+%    \bigskip
+%
+%    \item[$\rightarrow$]
+%    Expresión integral de la función de Bessel modificada del primer tipo
+%    de grado cero
+%
+%    \bigskip
+%    
+%    \item[$\rightarrow$]
+%    Principio de Laplace
+%\end{itemize}
+%
+%\bigskip
+%\bigskip
+%
+%Si $d$ es tal que la
+%integral \[ \int_1^\infty t^{-d/2}\,dt \] diverge, entonces una caminata aleatoria
+%simple en $\bZ^d$ será recurrente, y será transitoria en otro caso.
+%\end{frame}
+%
+%
+%\begin{frame}{Funciones generadoras}{Ordinarias}
+%
+%\[
+%    a_0,a_1,a_2,\dots \quad\longmapsto\quad\sum_{n=0}^\infty a_nz^n
+%\]
+%
+%
+%\begin{thm}\label{thm:producto_de_funciones_generadoras_ordinarias}
+%    Dada dos estructuras combinatorias $A$ y $B$, sean $a_n$ y $b_n$ el número total de
+%    formas posibles de dotar a un conjunto de $n$ elementos con las estructuras
+%    $A$ y $B$, respectivamente. Por otro
+%    lado, sea $c_n$ el número de formas de partir al conjunto
+%    $\{1,\dots,n\}$ en dos intervalos $S=\{1,\dots,i\}$, $T=\{i+1,\dots,n\}$,
+%    posiblemente vacíos, y dotarlos de las estructuras $A$ a $S$ y $B$ a $T$.
+%    Si $A(x)$, $B(x)$ y $C(x)$ denotan las funciones generadoras ordinarias de las
+%    sucesiones $(a_n)$, $(b_n)$ y $(c_n)$, respectivamente, entonces 
+%    \[
+%        A(x)B(x)=C(x).
+%    \]
+%\end{thm}
+%
+%\end{frame}
+%
+%\begin{frame}{Funciones generadoras}{Exponenciales}
+%\[
+%    a_0,a_1,a_2,\dots \quad\longmapsto\quad\sum_{n=0}^\infty \frac{a_n}{n!}z^n
+%\]
+%
+%\begin{thm}\label{thm:producto_de_funciones_generadoras_exponenciales}
+%    Sean $A$ y $B$ dos estructuras combinatorias. Sean $a_n$ y $b_n$ el número
+%    total de formas posibles de dotar a un conjunto de $n$ elementos con las
+%    estructuras $A$ y $B$, respectivamente. Por otro lado, sea $c_n$ el número
+%    de formas de expresar al conjunto $\{1,\dots,n\}$ como la
+%    unión de dos conjuntos $S$, $T$ disjuntos y dotarlos de las estructuras $A$
+%    a $S$ y $B$ a $T$.  Si $A(x)$, $B(x)$ y $C(x)$ denotan las funciones
+%    generadoras exponenciales de las sucesiones $(a_n)$, $(b_n)$ y $(c_n)$,
+%    respectivamente, entonces
+%    \[
+%        A(x)B(x)=C(x).
+%    \]
+%\end{thm}
+%\end{frame}
+%
+%\begin{frame}{Transformada de Borel}
+%
+%La transformada integral
+%\[
+%    (\cB f)(z) = \int_0^\infty f(tz)e^{-t}\,dt
+%    ,
+%\]
+%es llamada la \emphdef{transformada de Borel} $f$.  
+%
+%\bigskip
+%\bigskip
+%\bigskip
+%
+%\begin{thm}
+%    Si $f$ es la función generadora exponencial de $(a_n)$, entonces
+%    $\cB f$ es su función generadora ordinaria.
+%\end{thm}
+%
+%\end{frame}
+%
+%\begin{frame}{Funciones de Bessel modificadas}
+%\emphdef{Ecuación de Bessel} de orden $\alpha$
+%\[
+%    \frac{d^2y}{dx^2}+\frac{1}{x}\frac{dy}{dx}+\Big(1-\frac{\alpha^2}{x^2}\Big)y=0
+%\]
+%Cuando $\Re\alpha>-1/2$, tenemos soluciones $J_\alpha$. Se puede probar
+%que
+%\begin{align*}
+%    I_\alpha\colon\bR&\longrightarrow\bR\\
+%    x&\longmapsto e^{-\alpha\pi i/2}J_\alpha (xe^{\pi i/2})
+%\end{align*}
+%Llamada la \emphdef{función de Bessel modificada} del primer tipo, de orden $\alpha$.
+%
+%\end{frame}
+%
+%
+%
+%\begin{frame}
+%
+%Tenemos estas representaciones
+%\alt<2>{
+%\begin{itemize}
+%    \item en serie de potencias
+%    \[
+%        I_{0}(x)=
+%        \sum_{k=0}^\infty \frac{(x/2)^{2k}}{k!k!}.
+%    \]
+%
+%    \item
+%    integral
+%    \[
+%        I_{0} (x)
+%        =\frac{1}
+%        {\pi}
+%        \int_0^\pi e^{x\cos\theta}\,d\theta
+%    \]
+%\end{itemize}
+%}{
+%\begin{itemize}
+%    \item en serie de potencias
+%    \[
+%        I_{\mathcolor{red}{\alpha}}(x)=
+%        \sum_{k=0}^\infty \frac{(x/2)^{2k+
+%        \mathcolor{red}{\alpha}}}{k!\Gamma(k+
+%        \mathcolor{red}{\alpha}+1)}.
+%    \]
+%
+%    \item
+%    integral
+%    \[
+%        I_{\mathcolor{red}{\alpha}} (x)
+%        =\frac{(x/2)^{\mathcolor{red}{\alpha}}}
+%        {\sqrt\pi\Gamma(\mathcolor{red}{\alpha}+1/2)}
+%        \int_0^\pi e^{x\cos\theta}(\sin\theta)^{2\mathcolor{red}{\alpha}}\,d\theta
+%    \]
+%\end{itemize}
+%}
+%
+%\end{frame}
+%
+%\begin{frame}{Principio de Laplace}
+%
+%\[
+%    I(t)=\int_a^b e^{-t\phi(x)}f(x)\,dx,\quad t\in(0,\infty),
+%\]
+%
+%\bigskip
+%\bigskip
+%
+%\begin{thm}[Princpio de Laplace]\label{thm:principio_de_laplace}
+%    Supongamos que $a<b$ y $\phi,f\colon[a,b]\rightarrow\bR$ son suaves en $[a,b]$.
+%    Si además $\phi$ posee un mínimo global en $x_0\in(a,b)$, entonces
+%    la función $I$ definida arriba satisface
+%    \[
+%        I(t)\sim \mathrm{cte}\cdot t^{-1/2}e^{-t\phi(x_0)}
+%    \]
+%    cuando $t\to\infty$. 
+%\end{thm}
+%
+%\end{frame}
+%
+%\begin{frame}{Demostración del T. de Polya}
+%
+%${\bm p}$: la probabilidad de una caminata en $\bZ^d$ que comienza en $0$
+%regrese al origen
+%
+%\bigskip
+%\begin{block}{Objetivo}
+%Mostrar que $p=1$ cuando $d=1,2$ y que $p<1$ cuando
+%$d\geq 3$
+%\end{block}
+%
+%\bigskip
+%
+%${\bm p_n}$: la probabilidad de que una caminata regrese al origen
+%por primera vez después de $n$ pasos
+%
+%\[
+%    p = \sum_{n=0}^\infty p_n = \sum_{n=1}^\infty p_n, \qquad p_0=0
+%\]
+%
+%
+%${\bm q_n}$: la probabilidad de que una caminata regrese al origen
+%después de $n$ pasos
+%\onslide<2>
+%\mathcolor{red}{
+%\begin{align*}
+%    Q(z) = \sum_{n=0}^\infty q_nz^n = 1 + \sum_{n=1}^\infty q_nz^n,\quad q_0=1,
+%    \qquad
+%    P(z)=\sum_{n=0}^\infty p_nz^n
+%\end{align*}
+%}
+%
+%
+%\end{frame}
+%
+%\begin{frame}{Relación entre $P$ y $Q$}
+%\emphdef{Bucle}: caminata que comiena y termina en el origen,
+%\emphdef{no se descompone} si no se puede expresar como concatenación
+%de bucles no triviales
+%
+%
+%${\bm \ell_n}$: cantidad de bucles de longitud $n$
+%
+%
+%${\bm r_n}$: cantidad de bucles que no se descomponen de longitud $n$
+%
+%\pause
+%
+%Todo bucle se expresa como concatenación de un bucle indescomponible seguido
+%de otro bucle posiblemente trivial
+%
+%\[
+%    \ell_n = \sum_{k=0}^nr_k\ell_{n-k}, \qquad n\geq 1
+%\]
+%
+%\bigskip
+%
+%Al dividir entre $(2d)^n$, el número de caminatas de longitud $n$ en $\bZ^d$
+%
+%\[
+%    q_n = \sum_{k=0}^np_kq_{n-k}, \qquad n\geq 1 
+%    \quad\qquad\Longrightarrow\quad\qquad
+%    P(z)Q(z) = Q(z)-1\ \text{en }\bR[[z]]
+%\]
+%
+%\end{frame}
+%
+%\begin{frame}{$P$ y $Q$ como funciones analíticas en $\bD\subset\bC$}
+%Tenemos $0\leq p_n\leq q_n\leq 1$ y entonces
+%\[
+%    \text{radio de convergencia} = \frac{1}{\limsup p_n} \geq 1
+%\]
+%
+%\bigskip
+%
+%\[
+%    P,Q\colon\bD\rightarrow\bC
+%\]
+%
+%\bigskip
+%
+%Cuando $z\in[0,1)$, $Q(z)\geq 1$. De manera que si $0\leq z< 1$
+%\[
+%    P(z) = 1-\frac{1}{Q(z)}
+%\]
+%
+%\bigskip
+%
+%Del teorema de series de potencias de Abel
+%\[
+%    p = \lim_{\substack{z\to 1\\z\in[0,1)}}P(z)
+%    =1-\frac{1}{\lim_{\substack{z\to 1\\z\in[0,1)}}Q(z)}
+%\]
+%
+%\end{frame}
+%
+%\begin{frame}{Contando bucles en $\bZ^d$}
+%Estamos analizando $Q$
+%\[
+%    L(z) = \sum_{n=0}^\infty \ell_nz^n
+%    \quad\qquad \Longrightarrow \quad\qquad 
+%    Q(z)=L(z/2d)
+%\]
+%\bigskip
+%
+%Nos concentramos en la función generadora exponencial
+%
+%\[
+%    E(z) = \sum_{n=0}^\infty \ell_n\frac{z^n}{n!}
+%    \quad\qquad \Longrightarrow \quad\qquad 
+%    \cB E = L
+%\]
+%
+%\pause
+%
+%Veamos que podemos escribir a $E_2$ en términos de $E_1$. Un bucle
+%de longitud $n$ en $\bZ^2$ consta de un bucle vertical de longitud $k$
+%y otro horizontal de longitud $n-k$, ambos vistos en $\bZ^1$. Esta mezcla
+%de bucles no está ordenada, de manera que
+%\[
+%    \ell_n^{(2)}=\sum_{k=0}^n \binom{n}{k}\ell_k^{(1)}\ell_{n-k}^{(1)}
+%    \quad\quad \Longrightarrow \quad\quad 
+%    E_2(z) = E_1(z)^2
+%    \quad\quad \Longrightarrow \quad\quad 
+%    E_d(z) = E_1(z)^d
+%\]
+%
+%
+%\end{frame}
+%
+%
+%\begin{frame}{$E_1$ y la función de Bessel modificada $I_0$}
+%No hay bucles de longitud impar en $\bZ^1$. Entonces
+%\[
+%    \ell_n^{(1)}=\begin{cases}
+%                \binom{2k}{k} & \text{si }n=2k\text{ es par} \\
+%                0             & \text{si }n\text{ es impar}
+%    \end{cases}
+%\]
+%
+%
+%y luego
+%
+%
+%\[
+%    E_1(z) = \sum_{k=0}^\infty \binom{2k}{k}\frac{z^{2k}}{(2k)!}
+%    =\sum_{k=0}^\infty \frac{z^{2k}}{k!k!}
+%    \  \Longrightarrow \  
+%    I_0(2z)=\sum_{k=0}^\infty \frac{z^{2k}}{k!k!}=E_1(z),
+%    \  \Longrightarrow \  
+%    E_d(z) = I_0(2z)^d
+%\]
+%
+%\bigskip
+%
+%Por lo tanto
+%\[
+%    Q_d(z) = L_d\Big(\frac{z}{2d}\Big) = \cB\Big(E_d\Big(\frac{z}{2d}\Big)\Big)=
+%    \int_0^\infty I_0\Big(\frac{tz}{d}\Big)^de^{-t}\,dt.
+%\]
+%\end{frame}
+%
+%\begin{frame}{Estimando $I_0$ a través de su rep. integral}
+%Tenemos
+%\[
+%    I_0\Big(\frac{tz}{d}\Big)=\frac{1}{\pi}\int_0^\pi e^{(tz/d)\cos\theta}
+%    \,d\theta
+%\]
+%
+%\bigskip
+%
+%Del principio de Laplace
+%\[
+%    I_0\Big(\frac{tz}{d}\Big)_0
+%    \sim \mathrm{cte}\cdot (tz)^{-1/2}e^{tz/d}
+%\]
+%cuando $t\to\infty$, de manera que
+%
+%\[
+%    \int_N^\infty I_0\Big(\frac{tz}{d}\Big)^d e^{-t}\,dt\sim 
+%    \int_N^\infty \mathrm{cte}\cdot e^{t(z-1)}(tz)^{-d/2}\,dt
+%\]
+%
+%La colección de funciones $t\mapsto e^{t(z-1)}(tz)^{-d/2}$
+%es creciente precisamente cuando $z\to 1$ con $z$ real, por el teorema
+%de convergencia monótona de Lebesgue, 
+%\[
+%    \lim_{\substack{z\to 1\\z\in[0,1)}}\int_N^\infty e^{t(z-1)}(tz)^{-d/2}\,dt
+%    =\int_N^\infty \lim_{\substack{z\to 1\\z\in[0,1)}}e^{t(z-1)}(tz)^{-d/2}\,dt
+%    =\int_N^\infty t^{-d/2}\,dt
+%    .
+%\]
+%
+%\end{frame}
+%
+%\begin{frame}{Análisis de $Q$}
+%Es por esto que 
+%\[
+%    \lim_{\substack{z\to 1\\z\in[0,1]}}Q(z)=
+%    \lim_{\substack{z\to 1\\z\in[0,1]}}
+%    \int_N^\infty I_0\Big(\frac{tz}{d}\Big)^de^{-t}\,dt
+%    \sim\mathrm{cte}\cdot\int_N^\infty t^{-d/2}\,dt 
+%\]
+%
+%\bigskip
+%
+%Como la integral converge para $d\geq 3$ y diverge cuando $d=1,2$
+%
+%\bigskip
+%\bigskip
+%
+%Tenemos $p=1$ cuando $d=1,2$ y $p<1$ en el caso $d\geq 3$
+%
+%
+%\end{frame}
 
 
 \end{document}
