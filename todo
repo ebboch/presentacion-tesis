@@ -1,23 +1,25 @@
-10: ver demostracion
+To Do:
+
 *: cambiar \item para que se vea el número
-*: poner colores a los pesos de las graficas
-14: .. a un vértice de manera aleatoria ...
-14: parafrasear el algoritmo
-*: cambiar M-H por MH
-14: ... probabilidad de i->j alta y j->i baja
+
+
+============================================================
+
+
+Checar...
+
+10: ver demostracion
 *: hacer ejemplos MH
-17: 99/100 de color rojo
--*-: Resumen de cada sección
+*: ver demostración del Grimmet
+
+
+============================================================
+
+
+Notas para la narrativa:
+
 18: retomar la definción de recurrencia/transitoriedad con el dibujo
 *: decir qué es una caminata aleatoria simple
-*: definir función armónica antes de enunciar el problema de dirichlet discreto
-22: continua->armónica
-23: circuito->red
-35: expandir la sumatoria 4/4 + 4/8 +...
-38: Cuando -> cuando
-39: j_uv -> j_uv ^2
 40: la integral es como el caso de la sumatoria
-damos una interpretación analítica de las funciones generadoras exponenciales
-más combinatoria
-41: 4/* -> 1/*
+
 

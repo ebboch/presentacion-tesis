@@ -18,7 +18,9 @@
 \usepackage{blkarray}
 \usepackage{array}
 
-\usetheme{Warsaw}
+%\usetheme{Warsaw}
+\usetheme[secheader]{Boadilla}
+\setbeamertemplate{itemize subitem}[square] 
 \useoutertheme[subsection=false,shadow=true]{miniframes}
 \useinnertheme{default}
 \usefonttheme{serif}
@@ -172,6 +174,7 @@ Departamento de Matemáticas\\
 }{}
 %\setbeamerfont{page number in head/foot}{}
 %\setbeamertemplate{footline}[frame number]
+
 \begin{document}
 
 \tikzset{my state/.style={circle,draw, minimum width=1cm}}
@@ -283,21 +286,29 @@ Departamento de Matemáticas\\
         \node[my state] (5) at (8,0) {$5$};
 
         \path[every node]
-        (1) edge[->,>=latex,bend right, line width=1pt] node[below] {$1$} (2);
+        (1) edge[->,>=latex,bend right, line width=1pt] node[below] 
+        {\mathcolor{blue}{$1$}} (2);
         \path[every node]
-        (2) edge[->,>=latex,bend right, line width=1pt] node[above] {$\frac{1}{2}$} (1);
+        (2) edge[->,>=latex,bend right, line width=1pt] node[above] 
+        {\mathcolor{blue}{$\frac{1}{2}$}} (1);
         \path[every node]
-        (2) edge[->,>=latex,bend right, line width=1pt] node[below] {$\frac{1}{2}$} (3);
+        (2) edge[->,>=latex,bend right, line width=1pt] node[below] 
+        {\mathcolor{blue}{$\frac{1}{2}$}} (3);
         \path[every node]
-        (3) edge[->,>=latex,bend right, line width=1pt] node[above] {$\frac{1}{2}$} (2);
+        (3) edge[->,>=latex,bend right, line width=1pt] node[above] 
+        {\mathcolor{blue}{$\frac{1}{2}$}} (2);
         \path[every node]
-        (3) edge[->,>=latex,bend right, line width=1pt] node[below] {$\frac{1}{2}$} (4);
+        (3) edge[->,>=latex,bend right, line width=1pt] node[below] 
+        {\mathcolor{blue}{$\frac{1}{2}$}} (4);
         \path[every node]
-        (4) edge[->,>=latex,bend right, line width=1pt] node[above] {$\frac{1}{2}$} (3);
+        (4) edge[->,>=latex,bend right, line width=1pt] node[above] 
+        {\mathcolor{blue}{$\frac{1}{2}$}} (3);
         \path[every node]
-        (4) edge[->,>=latex,bend right, line width=1pt] node[below] {$\frac{1}{2}$} (5);
+        (4) edge[->,>=latex,bend right, line width=1pt] node[below] 
+        {\mathcolor{blue}{$\frac{1}{2}$}}(5);
         \path[every node]
-        (5) edge[->,>=latex,bend right, line width=1pt] node[above] {$1$} (4);
+        (5) edge[->,>=latex,bend right, line width=1pt] node[above] 
+        {\mathcolor{blue}{$1$}} (4);
     \end{tikzpicture}
 \end{equation*}
 
@@ -322,9 +333,11 @@ Departamento de Matemáticas\\
         }
 
         \path[every node]
-        (1) edge[<->,>=latex,line width=1pt] node[above right] {$\frac{1}{4}$} (2);
+        (1) edge[<->,>=latex,line width=1pt] node[above right] 
+        {\mathcolor{blue}{$\frac{1}{4}$}} (2);
         \path[every node]
-        (1) edge[<->,>=latex,line width=1pt] node[below right] {$\frac{1}{4}$} (5);
+        (1) edge[<->,>=latex,line width=1pt] node[below right] 
+        {\mathcolor{blue}{$\frac{1}{4}$}} (5);
         \path[every node]
         (1) edge[<->,>=latex,line width=1pt] node[right] {} (4);
         \path[every node]
@@ -628,7 +641,7 @@ La distribución $\pi$ es \emphdef{estacionaria} si $P\pi=\pi$.
 
     \bigskip
 
-    Para producir la \emphdef{cadena de M-H} $M$. De manera que $\pi$ es reversible
+    Para producir la \emphdef{cadena de MH} $M$. De manera que $\pi$ es reversible
     para $M$.
 
 \bigskip
@@ -639,7 +652,7 @@ Si la cadena propuesta $Q$ es reversible respecto a $\pi$,
 \[
     Q_{ij}\pi_j\mathcolor{red}{\ \bm >\ } Q_{ji}\pi_i
 \]
-M-H es un {\it ajuste} a $Q$ para obtener la reversibilidad.
+MH es un {\it ajuste} a $Q$ para obtener la reversibilidad.
 }{es decir,
 \[
     Q_{ij}\pi_j = Q_{ji}\pi_i
@@ -712,17 +725,15 @@ $\pi$ es reversible para $M$
 %    que además es reversible respecto a la distribución $\pi$.
 %\end{thm}
 Una \emphdef{caminata aleatoria} en una gráfica es un proceso que inicia
-en un vértice y avanza en cada paso a un vértice vecino aleatorio.
+en un vértice y avanza en cada paso a un vértice vecino de manera aleatoria.
 
 \bigskip
-    El siguiente algoritmo describe una caminata aleatoria asociada a la
-    cadena de Metropolis-Hastings.
+    \emphdef{Algoritmo de MH}
 
-\bigskip
 
     \begin{enumerate}
         \item
-        Supongamos que la caminata está ubicada en el estado $j$ en este momento.
+        La caminata está ubicada en el estado $j$ en este momento.
         Escogemos a $i$ de acuerdo a la matriz propuesta, es
         decir, con probabilidad $Q_{\ast j}$
         
@@ -738,11 +749,11 @@ en un vértice y avanza en cada paso a un vértice vecino aleatorio.
 
 \bigskip\pause
 
-{\it La caminata favorece incrementos en $\pi$ con probabilidad de $j\rightarrow i$
-alta y $i\rightarrow j$ baja.}
+{\it La caminata favorece incrementos en $\pi$ con probabilidad de $i\rightarrow j$
+alta y  $j\rightarrow i$ baja.}
 \end{frame}
 
-\begin{frame}{Puntos importantes de M-H}
+\begin{frame}{Puntos importantes de MH}
 \begin{itemize}
     \item
     Necesitamos una cadena propuesta $Q$. El performance del algoritmo depende de $Q$.
@@ -783,7 +794,7 @@ Cuando la matriz propuesta es simétrica, estamos hablando del
 
     \begin{enumerate}
         \item
-        Supongamos que la caminata está ubicada en el estado $j$ en este momento.
+        La caminata está ubicada en el estado $j$ en este momento.
         Escogemos a $i$ de acuerdo a la matriz propuesta, es
         decir, con probabilidad $Q_{\ast j}$
         
@@ -792,7 +803,7 @@ Cuando la matriz propuesta es simétrica, estamos hablando del
         caminata será $i$
         
         \item
-        En caso contrario, lanzamos una moneda de Bernoulli con probabilidad
+        Si $\pi_j>\pi_i$, lanzamos una moneda de Bernoulli con probabilidad
         $\pi_i/\pi_j$ para escoger al estado $i$ y probabilidad
         $1-\pi_i/\pi_j$ de escoger al estado $j$
     \end{enumerate}
@@ -867,7 +878,7 @@ nos quedemos con $i$. El algoritmo no favorece saltos muy pronunciados.}
 %
 %\end{frame}
 
-\begin{frame}{Ejemplo del alg. de M-H}
+\begin{frame}{Ejemplo del alg. de MH}
 \begin{equation*}
     \begin{tikzpicture}[scale=.75, baseline={([yshift=-.5ex]current bounding box.center)}]
         \node[my state] (1) at (0,2) {$1$};
@@ -910,13 +921,14 @@ nos quedemos con $i$. El algoritmo no favorece saltos muy pronunciados.}
 
 \alt<2>
 {
-$1\xrightarrow{60/100} 2$, como $Q_{21}\pi_1> Q_{12}\pi_2$, 
+$1\xrightarrow{\mathcolor{red}{60/100}} 2$, como $Q_{12}\pi_1> Q_{21}\pi_2$, 
 \begin{align*}
     \text{lanzamos moneda }\underbrace{10/11}_{2},\quad \underbrace{1/11}_{1}
 \end{align*}
 }
 {
-$2\xrightarrow{99/100} 1$ es aceptado porque $Q_{12}\pi_2\leq Q_{21}\pi_1$
+$2\xrightarrow{\mathcolor{red}{99/100}} 1$ 
+es aceptado porque $\pi_2Q_{21}\leq \pi_1Q_{12}$
 }
 \end{frame}
 
@@ -1000,6 +1012,40 @@ $2\xrightarrow{99/100} 1$ es aceptado porque $Q_{12}\pi_2\leq Q_{21}\pi_1$
 %
 %\end{frame}
 
+\begin{frame}{Resumen de la primera parte}
+\begin{itemize}
+    \item
+    Una matriz $A\geq 0$ es regular si y sólo si $A$ es irreducible y
+    aperiódica.
+
+    \bigskip
+    \bigskip
+
+    \item
+    Una cadena regular tiene una única distribución $\pi>0$ estacionaria.
+
+    \bigskip
+    \bigskip
+    
+    \item
+    Dada $\pi$ y una cadena propuesta $Q$, el algoritmo de MH permite
+    aproximar $\pi$
+    \begin{itemize}
+        \item
+        {\normalsize
+        A través de la sucesión $Mx_0,M^2x_0,M^3x_0,\dots$
+        }
+
+        \bigskip
+
+        \item
+        {\normalsize
+        A través de una {\it caminata aleatoria} en la digráfica de $Q$
+        }
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Teorema de recurrencia de Polya}
 Una caminata aleatoria que inicia en $0$ es \emphdef{recurrente} si la probabilidad
 de que regrese a $0$ es igual a $1$. Si esa probabilidad es $p<1$,
@@ -1049,10 +1095,10 @@ entonces es \emphdef{transitoria}\pause
 
     \draw (0,0) -- (0,1) ;
     \filldraw[black] (0,0.5) circle(0pt)
-    node[anchor=east] {\large $\frac{1}{4}$};
+    node[anchor=east] {\large \mathcolor{blue}{$\frac{1}{4}$}};
     \draw (0,0) -- (1,0) ;
     \filldraw[black] (0.5,0) circle(0pt)
-    node[anchor=north] {\large $\frac{1}{4}$};
+    node[anchor=north] {\large \mathcolor{blue}{$\frac{1}{4}$}};
     \draw[dotted] (1,0) -- (2,0) ;
     \draw[dotted] (2,0) -- (3,0) ;
     \draw (0,1) -- (1,1) ;
@@ -1108,9 +1154,9 @@ entonces es \emphdef{transitoria}\pause
     \node[my state] (t) at (4,2) {$t$};
 
     \path[every node]
-    (s) edge[-] node[left] {$\omega_{s2}$} (2);
+    (s) edge[-] node[left] {\mathcolor{blue}{$\omega_{s2}$}} (2);
     \path[every node]
-    (s) edge[-] node[below] {$\omega_{s3}$} (3);
+    (s) edge[-] node[below] {\mathcolor{blue}{$\omega_{s3}$}} (3);
     \path[every node]
     (s) edge[-] node[below] {} (t);
     \path[every node]
@@ -1151,6 +1197,28 @@ entonces es \emphdef{transitoria}\pause
 \]
 \end{frame}
 
+\begin{frame}{Funciones armónicas}
+Para una función armónica en un abierto $A\subset\bC$,
+\[
+    h(a)=\frac{1}{2\pi}\int_0^{2\pi}h(a+re^{i\theta})\,d\theta.
+\]
+Nos fijamos en la cadena de Markov con matriz de transición
+\[
+    P_{vu}=\frac{w_{vu}}{W_u},\qquad\text{donde}\qquad
+    W_u=\sum_{v\in v}w_{uv}.
+\]
+
+\bigskip
+\bigskip
+
+Si $U\subset V$, $f\colon V\rightarrow \bR$ es \emphdef{armónica} en $U$ si
+\[
+    f(u)=\sum_{v\in V}P_{vu}f(v),\quad u\in U
+\]
+
+
+\end{frame}
+
 \begin{frame}{Problema de Dirichlet discreto}
 Definir una estructura de red eléctrica es equivalente a
 resolver un problema de Dirichlet discreto
@@ -1178,29 +1246,8 @@ eléctrica a través de la ley de Ohm:
 
 \end{frame}
 
-\begin{frame}{Funciones armónicas}
-Para una función continua en un abierto $A\subset\bC$,
-\[
-    h(a)=\frac{1}{2\pi}\int_0^{2\pi}h(a+re^{i\theta})\,d\theta.
-\]
-Nos fijamos en la cadena de Markov con matriz de transición
-\[
-    P_{uv}=\frac{w_{uv}}{W_v},\qquad\text{donde}\qquad
-    W_v=\sum_{u\in V}w_{vu}.
-\]
 
-\bigskip
-\bigskip
-
-$f\colon V\rightarrow \bR$ es \emphdef{armónica} en $U\subset V$ si
-\[
-    f(u)=\sum_{v\in V}P_{vu}f(v),\quad u\in U
-\]
-
-
-\end{frame}
-
-\begin{frame}{Ejemplo básico de circuito eléctrico}
+\begin{frame}{Ejemplo básico de red eléctrica}
 \begin{equation*}
 \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
     \node[my state] (s) at (0,0) {$s$};
@@ -1208,9 +1255,9 @@ $f\colon V\rightarrow \bR$ es \emphdef{armónica} en $U\subset V$ si
     \node[my state] (t) at (4,0) {$t$};
 
     \path[every node]
-    (s) edge[-] node[above] {$1/2$} (1);
+    (s) edge[-] node[above] {\mathcolor{blue}{$1/2$}} (1);
     \path[every node]
-    (1) edge[-] node[above] {$1/2$} (t);
+    (1) edge[-] node[above] {\mathcolor{blue}{$1/2$}} (t);
 \end{tikzpicture},
 \qquad\qquad
 P=
@@ -1301,9 +1348,9 @@ tienen la misma resistencia efectiva
         \path[every node]
         (s) edge[-] node[above] {} (1);
         \path[every node]
-        (1) edge[-,bend left] node[above] {$r_1$} (2);
+        (1) edge[-,bend left] node[above] {\mathcolor{blue}{$r_1$}} (2);
         \path[every node]
-        (1) edge[-,bend right] node[below] {$r_2$} (2);
+        (1) edge[-,bend right] node[below] {\mathcolor{blue}{$r_2$}} (2);
         \path[every node]
         (2) edge[-] node[below] {} (t);
     \end{tikzpicture},
@@ -1317,7 +1364,7 @@ tienen la misma resistencia efectiva
         \path[every node]
         (s) edge[-] node[above] {} (1);
         \path[every node]
-        (1) edge[-] node[below] {$\frac{r_1r_2}{r_1+r_2}$} (2);
+        (1) edge[-] node[below] {\mathcolor{blue}{$\frac{r_1r_2}{r_1+r_2}$}} (2);
         \path[every node]
         (2) edge[-] node[below] {} (t);
     \end{tikzpicture}
@@ -1339,9 +1386,9 @@ tienen la misma resistencia efectiva
         \path[every node]
         (s) edge[-] node[above] {} (1);
         \path[every node]
-        (1) edge[-] node[above] {$r_1$} (2);
+        (1) edge[-] node[above] {\mathcolor{blue}{$r_1$}} (2);
         \path[every node]
-        (2) edge[-] node[above] {$r_2$} (3);
+        (2) edge[-] node[above] {\mathcolor{blue}{$r_2$}} (3);
         \path[every node]
         (3) edge[-] node[below] {} (t);
     \end{tikzpicture},
@@ -1355,7 +1402,7 @@ tienen la misma resistencia efectiva
         \path[every node]
         (s) edge[-] node[above] {} (1);
         \path[every node]
-        (1) edge[-] node[above] {$r_1+r_2$} (2);
+        (1) edge[-] node[above] {\mathcolor{blue}{$r_1+r_2$}} (2);
         \path[every node]
         (2) edge[-] node[below] {} (t);
     \end{tikzpicture}
@@ -1429,9 +1476,9 @@ Está alineada a la ley de Ohm. ($V=RI$.)
         \path[every node]
         (s) edge[-] node[above] {} (1);
         \path[every node]
-        (1) edge[-] node[above] {$r_1$} (2);
+        (1) edge[-] node[above] {\mathcolor{blue}{$r_1$}} (2);
         \path[every node]
-        (2) edge[-] node[above] {$r_2$} (3);
+        (2) edge[-] node[above] {\mathcolor{blue}{$r_2$}} (3);
         \path[every node]
         (3) edge[-] node[below] {} (t);
     \end{tikzpicture}
@@ -1444,7 +1491,7 @@ Está alineada a la ley de Ohm. ($V=RI$.)
         \path[every node]
         (s) edge[-] node[above] {} (1);
         \path[every node]
-        (1) edge[-] node[above] {$r_1$} (2);
+        (1) edge[-] node[above] {\mathcolor{blue}{$r_1$}} (2);
         \path[every node]
         (2) edge[-] node[below] {} (t);
     \end{tikzpicture}\\
@@ -1460,14 +1507,27 @@ partiendo de subgráficas finitas.
 Nos fijamos en $\Gamma_n = (V_n, E_n)$. 
 \begin{align*}
     \Delta_n &= \{v\in V\colon\ d(0,v)\leq n\}\\
-    V_{n+1} &= \Delta_n\ \cup\ \bar{V\setminus\Delta_n},
-    \quad \bar{V\setminus\Delta_n}=I_n\\
+    V_{n} &= \Delta_{n-1}\ \cup\ I_n,
+    \quad I_n=\bar{V\setminus\Delta_{n-1}}\\
 \end{align*}
 
 \begin{center}
-\begin{tabular}{>{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm}}
+\begin{tabular}{>{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{3cm}}
 %\begin{tabular}{c c c c >{\centering\arraybackslash}m{1cm} }
-$\Gamma_1$ & & $\Gamma_2$ & & \\
+$\Gamma_1$ & & $\Gamma_2$ & & $\Gamma_3$ & \\
+\begin{tikzpicture}
+    \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (1.5,0);
+    \draw[gray!50,->,>=latex,line width=1.5pt] (0,-1.5) -- (0,1.5);
+
+    \filldraw[black] (0,0) circle(1.5pt)
+    node[anchor=north] {};
+
+    \node[anchor=west] at (1,1) (In) {\small $I_1$};
+    \filldraw[black] (1,1) circle(1.5pt)
+    node[anchor=west] {};
+    \draw (0,0) edge[dashed,-] (1,1);
+\end{tikzpicture}
+& &
 \begin{tikzpicture}
     \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (1.5,0);
     \draw[gray!50,->,>=latex,line width=1.5pt] (0,-1.5) -- (0,1.5);
@@ -1487,7 +1547,7 @@ $\Gamma_1$ & & $\Gamma_2$ & & \\
     \filldraw[black] (0,-1) circle(1.5pt)
     node[anchor=north] {};
 
-    \node[anchor=west] at (1,1) (In) {\small $I_1$};
+    \node[anchor=west] at (1,1) (In) {\small $I_2$};
     \filldraw[black] (1,1) circle(1.5pt)
     node[anchor=west] {};
     \draw (0,1) edge[out=20,in=160,dashed,-] (1,1);
@@ -1542,15 +1602,15 @@ $\Gamma_1$ & & $\Gamma_2$ & & \\
     \draw[black,line width=0.5pt] (0,0) -- (0.5,0);
     \draw[black,line width=0.5pt] (0,0) -- (-0.5,0);
 
-    \node[anchor=west] at (1,1) (In) {\small $I_2$};
+    \node[anchor=west] at (1,1) (In) {\small $I_3$};
     \filldraw[black] (1,1) circle(1.5pt)
     node[anchor=west] {};
     \draw (0,1) edge[out=20,in=160,dashed,-] (1,1);
     \draw (1,0) edge[out=60,in=290,dashed,-] (1,1);
     \draw (0.5,0.5) edge[out=30,in=210,dashed,-] (1,1);
 \end{tikzpicture}
-& & $\cdots$ \\
-$\Reff(1)$ & $\leq$ & $\Reff(2)$ & $\leq$ & 
+& $\cdots$ \\
+$\Reff(1)$ & $\leq$ & $\Reff(2)$ & $\leq$ & $\Reff(3)$ &
 \end{tabular}
 \end{center}
 \end{frame}
@@ -1583,7 +1643,8 @@ Entonces, en la malla $\bZ^d$ definimos
     $
 \end{thm}
 \bigskip
-Entonces $Z$ es recurrente si y sólo si $\Reff=\infty$ ($d=1,2$).
+Para $d=1,2$ probaremos que $\Reff=\infty$
+%Entonces $Z$ es recurrente si y sólo si $\Reff=\infty$ ($d=1,2$).
 
 \bigskip
 Para el caso $d\geq 3$ introducimos el concepto de $(0,\infty)$-flujo
@@ -1638,9 +1699,9 @@ Para $d=1$, tenemos
         \path[every node]
         (1) edge[-] node[above] {} (2);
         \path[every node]
-        (2) edge[-] node[above] {$\frac{1}{2}$} (3);
+        (2) edge[-] node[above] {\mathcolor{blue}{$\frac{1}{2}$}} (3);
         \path[every node]
-        (3) edge[-] node[above] {$\frac{1}{2}$} (4);
+        (3) edge[-] node[above] {\mathcolor{blue}{$\frac{1}{2}$}} (4);
         \path[every node]
         (4) edge[-] node[above] {} (5);
         \path[every node]
@@ -1665,37 +1726,11 @@ Por lo que el teorema se cumple en $\bZ^1$
 \begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=2$}
 En cada $\Gamma_n$ acotamos su $\Reff(n)$ por abajo. En $\Gamma_n$ identificamos
 los conjuntos $\partial\Delta_1,\partial\Delta_2,\dots,\partial\Delta_{n-1}$.
-De manera que en $\Gamma_n$ obtenemos la red
-\begin{center}
-    \begin{tikzpicture}
-        \tikzstyle{dots} = []
-        \node[my state] (0) at (0,0) {$0$};
-        \node[my state] (1) at (2,0) {$1$};
-        \node[my state] (2) at (4,0) {$2$};
-        \node[dots] (3) at (6,0) {$\cdots$};
 
-        \path[every node]
-        (0) edge[-,bend left=20] node[above] {} (1);
-        \path[every node]
-        (0) edge[-,bend left=40] node[above] {} (1);
-        \path[every node]
-        (0) edge[-,bend right=20] node[below] {} (1);
-        \path[every node]
-        (0) edge[-,bend right=40] node[below] {$4$} (1);
-        \path[every node]
-        (1) edge[-,bend left=40] node[below] {$\vdots$} (2);
-        \path[every node]
-        (1) edge[-,bend right=40] node[below] {$8$} (2);
-        \path[every node]
-        (2) edge[-,bend left=40] node[below] {$\vdots$} (3);
-        \path[every node]
-        (2) edge[-,bend right=40] node[below] {$12$} (3);
-    \end{tikzpicture}
-\end{center}
 \begin{center}
 \begin{tabular}{>{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm} >{\centering\arraybackslash}m{1cm} >{\centering\arraybackslash}m{3cm}}
 %\begin{tabular}{c c c c >{\centering\arraybackslash}m{1cm} }
-$\Gamma_1$ & & $\Gamma_2$ & & \\
+$\Gamma_2$ & & $\Gamma_3$ & & \\
 \begin{tikzpicture}
     \draw[gray!50,->,>=latex,line width=1.5pt] (-1.5,0) -- (1.5,0);
     \draw[gray!50,->,>=latex,line width=1.5pt] (0,-1.5) -- (0,1.5);
@@ -1715,7 +1750,7 @@ $\Gamma_1$ & & $\Gamma_2$ & & \\
     \filldraw[blue] (0,-1) circle(1.5pt)
     node[anchor=north] {};
 
-    \node[anchor=west] at (1,1) (In) {\small $I_1$};
+    \node[anchor=west] at (1,1) (In) {\small $I_2$};
     \filldraw[black] (1,1) circle(1.5pt)
     node[anchor=west] {};
     \draw (0,1) edge[out=20,in=160,dashed,-] (1,1);
@@ -1758,7 +1793,7 @@ $\Gamma_1$ & & $\Gamma_2$ & & \\
     \draw[blue,line width=0.5pt] (0.5,-0.5) -- (0.5,0.5);
     \draw[blue,line width=0.5pt] (0.5,0.5) -- (-0.5,0.5);
     
-    \node[anchor=west] at (1,1) (In) {\small $I_2$};
+    \node[anchor=west] at (1,1) (In) {\small $I_3$};
     \filldraw[black] (1,1) circle(1.5pt)
     node[anchor=west] {};
     \draw (0,1) edge[out=20,in=160,dashed,-] (1,1);
@@ -1782,12 +1817,46 @@ $\Gamma_1$ & & $\Gamma_2$ & & \\
 %$\Reff(1)$ & $\leq$ & $\Reff(2)$ & $\leq$ & 
 \end{tabular}
 \end{center}
+
+De manera que en $\Gamma_n$ obtenemos la red
+\begin{center}
+    \begin{tikzpicture}
+        \tikzstyle{dots} = []
+        \node[my state] (0) at (0,0) {$0$};
+        \node[my state] (1) at (2,0) {$1$};
+        \node[my state] (2) at (4,0) {$2$};
+        \node[dots] (3) at (6,0) {$\cdots$};
+
+        \path[every node]
+        (0) edge[-,bend left=20] node[above] {} (1);
+        \path[every node]
+        (0) edge[-,bend left=40] node[above] {\small \mathcolor{blue}{$4$}} (1);
+        \path[every node]
+        (0) edge[-,bend right=20] node[below] {} (1);
+        \path[every node]
+        (0) edge[-,bend right=40] node[below] {$4$} (1);
+        \path[every node]
+        (1) edge[-,bend left=40] node[below] {$\vdots$} (2);
+        \path[every node]
+        (1) edge[-,bend left=40,line width=0pt] node[above] 
+        {\small \mathcolor{blue}{$4$}} (2);
+        \path[every node]
+        (1) edge[-,bend right=40] node[below] {$12$} (2);
+        \path[every node]
+        (2) edge[-,bend left=40] node[below] {$\vdots$} (3);
+        \path[every node]
+        (2) edge[-,bend left=40,line width=0pt] node[above] 
+        {\small \mathcolor{blue}{$4$}} (3);
+        \path[every node]
+        (2) edge[-,bend right=40] node[below] {$8k-4$} (3);
+    \end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=2$}
 Para cada $n$, tenemos que
 \[
-    \sum_{k=1}^n \frac{4}{8k-4} \leq \Reff(n)
+    \frac{4}{4}+\frac{4}{12}+\cdots=\sum_{k=1}^n \frac{4}{8k-4} \leq \Reff(n)
 \]
 \bigskip
 Por lo que
@@ -1845,57 +1914,59 @@ Con el signo de
 
 \end{frame}
 
-\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=3$}
-$j$ es un $(0,\infty)$-flujo no trivial ($J_0\neq 0$)
-\begin{itemize}
-    \item
-    Ley de corrientes de Kirchhoff
-    \[
-        \sum_{v\in V}j_{uv}=0\text{ si }u\neq 0
-    \]
-    
-    \item
-    $j_{uv}=-j_{vu}$
-
-    \item
-    $j_{uv}=0$ si $\{u,v\}$ no es arista de $\Gamma$
-\end{itemize}
-\end{frame}
+%\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=3$}
+%$j$ es un $(0,\infty)$-flujo no trivial ($J_0\neq 0$)
+%\begin{itemize}
+%    \item
+%    Ley de corrientes de Kirchhoff
+%    \[
+%        \sum_{v\in V}j_{uv}=0\text{ si }u\neq 0
+%    \]
+%    
+%    \item
+%    $j_{uv}=-j_{vu}$
+%
+%    \item
+%    $j_{uv}=0$ si $\{u,v\}$ no es arista de $\Gamma$
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}{Demostración del Teorema de Polya...}{Caso $d=3$}
-Sólo falta ver que tiene energía finita. Unas estimaciones,
+Sólo falta ver que tiene energía finita.
 
 \bigskip
 
-Cuando $\|u\|$ es grande, $\|(u_1-1,u_2,u_3-1)\|\approx\|u\|$, de manera que
-\[
-    \left\|\frac{(u_1-1,u_2,u_3-1)}{\|(u_1-1,u_2,u_3-1)\|}
-    -\frac{(u_1+1,u_2,u_3-1)}{\|(u_1+1,u_2,u_3-1)\|}\right\|\approx
-    \frac{\|(2,0,0)\|}{\|u\|}=\frac{2}{\|u\|}
-\]
+%Cuando $\|u\|$ es grande, $\|(u_1-1,u_2,u_3-1)\|\approx\|u\|$, de manera que
+%\[
+%    \left\|\frac{(u_1-1,u_2,u_3-1)}{\|(u_1-1,u_2,u_3-1)\|}
+%    -\frac{(u_1+1,u_2,u_3-1)}{\|(u_1+1,u_2,u_3-1)\|}\right\|\approx
+%    \frac{\|(2,0,0)\|}{\|u\|}=\frac{2}{\|u\|}
+%\]
+%
+%\bigskip
+%
+%y luego
 
-\bigskip
-
-y luego
+Podemos acotar a $|j_{uv}|$ por arriba:
 \[
     |j_{uv}|=\left|\int_{\Pi_v}\,dS\right|\leq
     \frac{A'}{\|u\|^2} \leq \frac{A}{d(0,u)^2}
 \]
 
-
-\end{frame}
-
-\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=3$}
 Ahora la cantidad de vértices con $d(0,u)=n$. (En el primer octante, es lo mismo
 que contar particiones de $n$.) Entonces
 \[
     |\{u\colon\ d(0,u)=n\}| \leq Bn^2
 \]
 
+\end{frame}
+
+\begin{frame}{Demostración del Teorema de Polya...}{\large Caso $d=3$}
+
 Acotemos la energía por arriba.
 \begin{align*}
     E(j)=\sum_{u\neq 0}\sum_{v\sim u}j_{uv}^2r_{uv}
-    &=\sum_{u\neq 0}\sum_{v\sim u}6j_{uv}\\
+    &=\sum_{u\neq 0}\sum_{v\sim u}6j_{uv}^2\\
     &\leq \sum_{d(0,u)\geq 1}\sum_{v\sim u}6\Big(\frac{A}{d(0,u)^2}\Big)^2\\
     &=\sum_{n=1}^\infty \sum_{v\sim u}6\Big(\frac{A}{n^2}\Big)^2
     \leq\sum_{n=1}^\infty 6Bn^2\Big(\frac{A}{n^2}\Big)^2 <\infty\\
@@ -1903,18 +1974,49 @@ Acotemos la energía por arriba.
 
 \end{frame}
 
+\begin{frame}{Resumen de la segunda parte}
+\begin{itemize}
+    \item
+    Una estructura de red eléctrica es equivalente a resolver un problema de 
+    Dirichlet discreto.
+
+    \bigskip
+
+    \item
+    Si las resistencias bajan, también baja la resistencia efectiva.
+
+    \bigskip
+
+    \item
+    Para dimensiones $d=1,2$ nos basamos en lo siguiente
+    \[
+        \bP(Z\text{ regresa a }0) = 1-\frac{1}{\text{cte}\cdot\Reff}
+    \]
+
+    \bigskip
+    
+    \item
+    Para dimensiones $d\geq 3$ construimos un $(0,\infty)$-flujo no trivial
+    con energía finita.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Teorema de Polya vía funciones especiales}
-Comenzamos por expresar la probabilidad de que una caminata
-regrese al origen en términos de probabilidades más pequeñas. 
-\pause
-Después introducimos funciones generadoras, de manera combinatoria.
-\pause
-Damos una interpretación analítica y analizamos cierto límite.
+Comenzamos por contar bucles y bucles indescomponibles. \pause
+Introducimos las probabilidades $p_n$ y $q_n$ de manera combinatoria.
+$q_n$ es la probabilidad de regresar al origen en $n$ pasos.
+$p_n$ es la probabilidad de regresar al origen por primera vez en $n$ pasos. \pause
+\[
+    P(z)=\sum_{n=0}^\infty p_nz^n,\ 
+    Q(z)=\sum_{n=0}^\infty q_nz^n
+    \quad \text{satisfacen} \quad
+    PQ = Q-1
+    \quad \text{en}\quad
+    \bR[[z]]
+\]
 
-\pause
-\bigskip
-\bigskip
-
+Interpretamos esta identidad como funciones analíticas para pasar de argumentos
+combinatorios al análisis de cierto límite. \pause
 Al final, el teorema es equivalente a estudiar la convergencia 
 o divergencia de la integral
 \[
